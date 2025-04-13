@@ -1,0 +1,14 @@
+[
+  {
+
+    "ImageName": "Laptop",
+    "ProductId":1
+
+  },
+  {
+
+    "ImageName": "PC",
+    "ProductId": 2
+
+  }
+]
