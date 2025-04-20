@@ -17,7 +17,7 @@ namespace Ecom.API.Controllers
         private readonly IUnitOfWork _unit;
         private readonly IMapper _mapper;
 
-        public ProductsController(IUnitOfWork unit, IMapper mapper)
+        public ProductsController(IUnitOfWork unit, IMapper mapper )
         {
             _unit = unit;
             _mapper = mapper;
@@ -35,5 +35,22 @@ namespace Ecom.API.Controllers
                 return Ok(productDto);
            
         }
+        [HttpGet("get-by-id/{id}")]
+        public async Task<IActionResult> getById(int id )
+        {
+            var product = await _unit.Repository<Product>().GetByIdAsync(id , x=>x.Category , x=>x.Photos);
+            if (product is null)
+            {
+                return BadRequest(new ApiResponse(400));
+            }
+            var productDTO = _mapper.Map<ProductDTO>(product);
+            return Ok(productDTO);
+        }
+        //[HttpPost("add-Product")]
+        //public async Task<IActionResult> Add(AddProductDTO productDTO)
+        //{
+            
+        //    _unit
+        //}
     }
 }

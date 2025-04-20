@@ -12,13 +12,15 @@ namespace Ecom.API.Mapper
             CreateMap<UpdateCategoryDTO, Category>().ReverseMap();
 
             //Product 
-            CreateMap<Product, ProductDTO>().ForMember(p => p.CategoryName, D => D.MapFrom(d => d.Category.Name))
-                                            .ForMember(p => p.CategoryDescription, D => D.MapFrom(d => d.Category.Description))
+            CreateMap<Product, ProductDTO>().ForMember(p => p.CategoryName, D => D.MapFrom(d => d.Category.Name))                                     
                                             .ForMember(p=>p.photos , D=>D.MapFrom(d=>d.Photos))
                                             .ReverseMap();
 
             //photos
             CreateMap<Photo, PhotoDTO>().ReverseMap();
+            CreateMap<Product, AddProductDTO>()
+                .ForMember(p => p.Photos , d=>d.Ignore())
+                .ReverseMap();
 
         }
     }

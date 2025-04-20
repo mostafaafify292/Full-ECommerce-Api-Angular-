@@ -1,7 +1,9 @@
 
 using Ecom.Core.Interfaces;
+using Ecom.Core.Services;
 using Ecom.infrastructure.Data;
 using Ecom.infrastructure.Repository;
+using Ecom.infrastructure.Repository.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -27,6 +29,7 @@ namespace Ecom.API
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddScoped(typeof(IImageMangementService), typeof(ImageMangementService));
 
             builder.Services.AddDbContext<AppDbContext>(option =>
             {
@@ -82,7 +85,7 @@ namespace Ecom.API
 
 
             app.MapControllers();
-
+            app.UseStaticFiles();
             app.Run();
         }
     }

@@ -1,5 +1,7 @@
-﻿using Ecom.Core.Entites;
+﻿using AutoMapper;
+using Ecom.Core.Entites;
 using Ecom.Core.Interfaces;
+using Ecom.Core.Services;
 using Ecom.infrastructure.Data;
 using System;
 using System.Collections;
@@ -13,12 +15,19 @@ namespace Ecom.infrastructure.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _dbcontext;
+        private readonly IMapper _mapper;
+        private readonly IImageMangementService _imageMangement;
         private Hashtable _repository;
+        public IProductRepository ProductRepository { get; }
 
-        public UnitOfWork(AppDbContext dbcontext)
+        public UnitOfWork(AppDbContext dbcontext , IMapper mapper , IImageMangementService imageMangement)
         {
             _dbcontext = dbcontext;
+            _mapper = mapper;
+            _imageMangement = imageMangement;
+
             _repository = new Hashtable();
+             ProductRepository = new ProductRepository(_dbcontext ,_mapper ,_imageMangement);
         } 
 
         public async Task<int> CompleteAsync()
