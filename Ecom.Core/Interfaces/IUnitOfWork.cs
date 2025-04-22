@@ -9,6 +9,8 @@ namespace Ecom.Core.Interfaces
 {
     public interface IUnitOfWork : IAsyncDisposable
     {
+
+        public  IProductRepository productRepository { get; set; }
         public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity;
         public Task<int> CompleteAsync();
     }

@@ -6,6 +6,7 @@ using Ecom.infrastructure.Repository;
 using Ecom.infrastructure.Repository.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Talabat.APIS.Errors;
@@ -30,6 +31,10 @@ namespace Ecom.API
             builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddScoped(typeof(IImageMangementService), typeof(ImageMangementService));
+            builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+            builder.Services.AddSingleton<IFileProvider>(
+                                                         new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"))
+                                                        );
 
             builder.Services.AddDbContext<AppDbContext>(option =>
             {

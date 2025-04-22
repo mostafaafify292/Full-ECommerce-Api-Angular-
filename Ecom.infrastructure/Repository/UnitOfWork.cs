@@ -17,17 +17,16 @@ namespace Ecom.infrastructure.Repository
         private readonly AppDbContext _dbcontext;
         private readonly IMapper _mapper;
         private readonly IImageMangementService _imageMangement;
+        public  IProductRepository productRepository { get; set; }
         private Hashtable _repository;
-        public IProductRepository ProductRepository { get; }
 
-        public UnitOfWork(AppDbContext dbcontext , IMapper mapper , IImageMangementService imageMangement)
+        public UnitOfWork(AppDbContext dbcontext , IMapper mapper , IImageMangementService imageMangement )
         {
             _dbcontext = dbcontext;
             _mapper = mapper;
             _imageMangement = imageMangement;
-
+            productRepository = new ProductRepository(_dbcontext , _mapper , _imageMangement);
             _repository = new Hashtable();
-             ProductRepository = new ProductRepository(_dbcontext ,_mapper ,_imageMangement);
         } 
 
         public async Task<int> CompleteAsync()

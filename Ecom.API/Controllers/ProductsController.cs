@@ -45,12 +45,30 @@ namespace Ecom.API.Controllers
             }
             var productDTO = _mapper.Map<ProductDTO>(product);
             return Ok(productDTO);
-        }
-        //[HttpPost("add-Product")]
-        //public async Task<IActionResult> Add(AddProductDTO productDTO)
-        //{
             
-        //    _unit
-        //}
+        }
+        [HttpPost("add-Product")]
+        public async Task<IActionResult> Add(AddProductDTO productDTO)
+        {
+            
+            if (ModelState.IsValid & productDTO is not null)
+            {
+                var result = await _unit.productRepository.AddAsync(productDTO);
+                return Ok(new ApiResponse(200 , "Product Created Successfuly"));
+            }
+            return BadRequest(new ApiResponse(400));
+
+        }
+        [HttpPut("update-Product")]
+        public async Task<IActionResult> Update(UpdateProductDTO updateProductDTO)
+        {
+            if (ModelState.IsValid & updateProductDTO is not null)
+            {
+                await _unit.productRepository.UpdateAsync(updateProductDTO);
+                return Ok(new ApiResponse(200 , "Product Updated Successfuly"));
+            }
+            return BadRequest(new ApiResponse(400 ));
+        }
+
     }
 }

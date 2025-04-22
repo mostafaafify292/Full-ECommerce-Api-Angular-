@@ -28,6 +28,7 @@ namespace Ecom.API.Controllers
                 if (category is null)
                 {
                     return BadRequest( new ApiResponse(400));
+                
                 }
                 return Ok(category);
         
