@@ -46,16 +46,29 @@ namespace Ecom.infrastructure.Repository
             
         }
 
+        public async Task DeleteAsync(Product product)
+        {
+            var photos =await _dbContext.Photos.Where(m => m.ProductId == product.Id).ToListAsync();
+            foreach (var item in photos)
+            {
+                _imageMangement.RemoveImageAsync(item.ImageName);
+            }
+            _dbContext.Products.Remove(product);
+            await _dbContext.SaveChangesAsync();
+
+
+        }
+
         public async Task<bool> UpdateAsync(UpdateProductDTO productDTO)
         {
             if (productDTO == null) return false;
-            var findProduct =await _dbContext.Products.Include(m => m.Category).Include(m => m.Photos)
+            var Product =await _dbContext.Products.Include(m => m.Category).Include(m => m.Photos)
                                                       .FirstOrDefaultAsync(p => p.Id == productDTO.Id);
-            if (findProduct is null)
+            if (Product is null)
             {
                 return false;
             }
-            _mapper.Map<Product>(findProduct);
+            _mapper.Map(productDTO , Product);
             var findPhoto = await _dbContext.Photos.Where(ph => ph.ProductId == productDTO.Id).ToListAsync();
             foreach (var item in findPhoto)
             {
@@ -72,5 +85,6 @@ namespace Ecom.infrastructure.Repository
             await _dbContext.SaveChangesAsync();
             return true;
         }
+
     }
 }
