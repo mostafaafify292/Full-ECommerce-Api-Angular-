@@ -32,6 +32,7 @@ namespace Ecom.API
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddScoped(typeof(IImageMangementService), typeof(ImageMangementService));
             builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+            builder.Services.AddMemoryCache();
             builder.Services.AddSingleton<IFileProvider>(
                                                          new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"))
                                                         );

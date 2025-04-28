@@ -44,7 +44,7 @@ namespace Ecom.infrastructure.Repository
             var key = typeof(TEntity).Name;
             if (!_repository.ContainsKey(key))
             {
-                var repository = new GenericRepository<TEntity>(_dbcontext);
+                var repository = new GenericRepository<TEntity>(_dbcontext , _mapper);
                 _repository.Add(key, repository);
             }
             return _repository[key] as IGenericRepository<TEntity>;

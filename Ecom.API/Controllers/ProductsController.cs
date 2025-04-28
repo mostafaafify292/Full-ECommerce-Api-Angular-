@@ -23,16 +23,15 @@ namespace Ecom.API.Controllers
             _mapper = mapper;
         }
         [HttpGet("get-all")]
-        public async Task<IActionResult> get()
+        public async Task<IActionResult> get(string sort)
         {
             
-                var product = await _unit.Repository<Product>().GetAllAsync(x => x.Category, x => x.Photos);
+                var product = await _unit.Repository<Product>().GetAllAsync(sort);
                 if (product is null)
                 {
                     return BadRequest(new ApiResponse(400));
-                }
-                 var productDto = _mapper.Map<List<ProductDTO>>(product);
-                return Ok(productDto);
+                }    
+                return Ok(product);
            
         }
         [HttpGet("get-by-id/{id}")]

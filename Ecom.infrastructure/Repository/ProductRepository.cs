@@ -19,7 +19,7 @@ namespace Ecom.infrastructure.Repository
         private readonly IMapper _mapper;
         private readonly IImageMangementService _imageMangement;
 
-        public ProductRepository(AppDbContext dbContext ,IMapper mapper , IImageMangementService imageMangement) : base(dbContext)
+        public ProductRepository(AppDbContext dbContext ,IMapper mapper , IImageMangementService imageMangement) : base(dbContext , mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
