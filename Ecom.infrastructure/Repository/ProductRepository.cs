@@ -58,6 +58,34 @@ namespace Ecom.infrastructure.Repository
 
 
         }
+        public async Task<IEnumerable<ProductDTO>> GetAllAsync(string? sort, int? categoryId, int PageSize, int pageNumber)
+        {
+            var query = _dbContext.Products.Include(m => m.Category)
+                                           .Include(m => m.Photos)
+                                           .AsNoTracking();
+            //filtering By Catrgory Id 
+            if (categoryId.HasValue)
+            {
+                query = query.Where(m => m.CategoryId == categoryId);   
+            }
+            //Sort By Price
+            if (!string.IsNullOrEmpty(sort))
+            {
+                query = sort switch
+                {
+                    "PriceAsn" => query.OrderBy(m => m.NewPrice),
+                    "PriceDes" => query.OrderByDescending(m => m.NewPrice),
+                    _ => query.OrderBy(m => m.Name),
+                };
+            }
+            //pagination
+            pageNumber = pageNumber > 0 ? pageNumber : 1;
+            PageSize = PageSize > 0 ? PageSize : 3;
+
+            query = query.Skip((PageSize) * (pageNumber-1)).Take(PageSize);
+            var result = _mapper.Map<List<ProductDTO>>(query);
+            return (result);
+        }
 
         public async Task<bool> UpdateAsync(UpdateProductDTO productDTO)
         {

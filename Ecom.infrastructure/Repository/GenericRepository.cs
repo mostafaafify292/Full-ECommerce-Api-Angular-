@@ -53,29 +53,7 @@ namespace Ecom.infrastructure.Repository
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<ProductDTO>> GetAllAsync(string sort)
-        {
-            var query = _dbContext.Products.Include(m => m.Category)
-                                           .Include(m => m.Photos)
-                                           .AsNoTracking();
-            if (!string.IsNullOrEmpty(sort))
-            {
-                switch (sort)
-                {
-                    case "PriceAsn":
-                        query = query.OrderBy(m => m.NewPrice);
-                        break;
-                    case "PriceDes":
-                        query = query.OrderByDescending(m => m.NewPrice);
-                        break;
-                    default:
-                        query = query.OrderBy(m => m.Name);
-                        break;
-                }
-            }
-            var result = _mapper.Map<List<ProductDTO>>(query);
-            return (result);
-        }
+       
 
         public async Task<T> GetByIdAsync(int Id)
         {

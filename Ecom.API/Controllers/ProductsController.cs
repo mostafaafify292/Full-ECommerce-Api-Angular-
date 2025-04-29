@@ -23,10 +23,10 @@ namespace Ecom.API.Controllers
             _mapper = mapper;
         }
         [HttpGet("get-all")]
-        public async Task<IActionResult> get(string sort)
+        public async Task<IActionResult> get(string? sort , int? categoryId , int PageSize, int pageNumber)
         {
             
-                var product = await _unit.Repository<Product>().GetAllAsync(sort);
+                var product = await _unit.productRepository.GetAllAsync(sort , categoryId , PageSize , pageNumber);
                 if (product is null)
                 {
                     return BadRequest(new ApiResponse(400));

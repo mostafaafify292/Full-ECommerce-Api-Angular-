@@ -13,7 +13,6 @@ namespace Ecom.Core.Interfaces
     {
         Task<IReadOnlyList<T>> GetAllAsync();
         Task<IReadOnlyList<T>> GetAllAsync(params Expression<Func<T, object>>[] Includes );
-        Task<IEnumerable<ProductDTO>> GetAllAsync(string sort);
         Task<T> GetByIdAsync(int Id);
         Task<T> GetByIdAsync(int Id , params Expression<Func<T, object>>[] Includes);
         Task AddAsync(T entity);
