@@ -1,6 +1,7 @@
 ﻿using Ecom.Core.DTO;
 using Ecom.Core.Entites;
 using Ecom.Core.Entites.Product;
+using Ecom.Core.Sharing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Ecom.Core.Interfaces
         public Task<bool> UpdateAsync(UpdateProductDTO productDTO);
         public Task<bool> AddAsync(AddProductDTO productDTO);
         public Task DeleteAsync(Product product);
-        Task<IEnumerable<ProductDTO>> GetAllAsync(string sort, int? categoryId,  int PageSize, int pageNumber);
+        Task<IEnumerable<ProductDTO>> GetAllAsync(ProductParam productParam);
 
     }
 }

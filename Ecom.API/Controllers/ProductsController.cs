@@ -3,6 +3,7 @@ using Ecom.API.Error;
 using Ecom.Core.DTO;
 using Ecom.Core.Entites.Product;
 using Ecom.Core.Interfaces;
+using Ecom.Core.Sharing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.Serialization;
@@ -23,10 +24,10 @@ namespace Ecom.API.Controllers
             _mapper = mapper;
         }
         [HttpGet("get-all")]
-        public async Task<IActionResult> get(string? sort , int? categoryId , int PageSize, int pageNumber)
+        public async Task<IActionResult> get([FromQuery]ProductParam productParam)
         {
             
-                var product = await _unit.productRepository.GetAllAsync(sort , categoryId , PageSize , pageNumber);
+                var product = await _unit.productRepository.GetAllAsync(productParam);
                 if (product is null)
                 {
                     return BadRequest(new ApiResponse(400));
