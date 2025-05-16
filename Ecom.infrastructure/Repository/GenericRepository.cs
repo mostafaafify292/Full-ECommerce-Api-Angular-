@@ -2,6 +2,7 @@
 using Ecom.Core.DTO;
 using Ecom.Core.Entites;
 using Ecom.Core.Interfaces;
+using Ecom.Core.Sharing;
 using Ecom.infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -31,6 +32,9 @@ namespace Ecom.infrastructure.Repository
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<int> CountAsync()
+        =>await _dbContext.Set<T>().CountAsync();
+
         public async Task DeleteAsync(int Id)
         {
             var entity = await _dbContext.Set<T>().FindAsync(Id);
@@ -43,7 +47,7 @@ namespace Ecom.infrastructure.Repository
             return await _dbContext.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public async Task<IReadOnlyList<T>> GetAllAsync(params Expression<Func<T, object>>[] Includes)
+        public async Task<IReadOnlyList<T>> GetAllAsync(params Expression<Func<T,object>>[] Includes)
         {
             var query = _dbContext.Set<T>().AsQueryable();
             foreach (var item in Includes)

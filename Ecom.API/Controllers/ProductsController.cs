@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ecom.API.Error;
+using Ecom.API.Helper;
 using Ecom.Core.DTO;
 using Ecom.Core.Entites.Product;
 using Ecom.Core.Interfaces;
@@ -31,8 +32,9 @@ namespace Ecom.API.Controllers
                 if (product is null)
                 {
                     return BadRequest(new ApiResponse(400));
-                }    
-                return Ok(product);
+                }
+                var totalCount = await _unit.productRepository.CountAsync();
+                return Ok(new Pagination<ProductDTO>(productParam.pageNumber , productParam.PageSize ,totalCount , product));
            
         }
         [HttpGet("get-by-id/{id}")]
