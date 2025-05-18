@@ -6,6 +6,7 @@ using Ecom.Core.Services;
 using Ecom.Core.Sharing;
 using Ecom.infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,17 @@ namespace Ecom.infrastructure.Repository
             var query = _dbContext.Products.Include(m => m.Category)
                                            .Include(m => m.Photos)
                                            .AsNoTracking();
+            //Searching By Name of product 
+
+            if (!string.IsNullOrEmpty(productParam.Search))
+            {
+                var stringToSearch = productParam.Search.ToLower().Split(' ');
+                query = query.Where(p => stringToSearch.All(word =>
+                p.Name.ToLower().Contains(word)
+                ||
+                p.Description.ToLower().Contains(word)
+                ));
+            }
             //filtering By Catrgory Id 
             if (productParam.categoryId.HasValue)
             {

@@ -1,4 +1,5 @@
 
+using Ecom.API.Extentions;
 using Ecom.Core.Interfaces;
 using Ecom.Core.Services;
 using Ecom.infrastructure.Data;
@@ -23,40 +24,23 @@ namespace Ecom.API
             // Add services to the container.
 
             builder.Services.AddControllers();
-           
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddApplicationServices();
+            builder.Services.AddSwaggerServices();
 
-            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            builder.Services.AddScoped(typeof(IImageMangementService), typeof(ImageMangementService));
-            builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
-            builder.Services.AddMemoryCache();
-            builder.Services.AddSingleton<IFileProvider>(
-                                                         new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"))
-                                                        );
+            builder.Services.AddCors(op =>
+            op.AddPolicy("CORSPolicy", builder =>
+            {
+                builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:4200");
+            })
+            );
+
 
             builder.Services.AddDbContext<AppDbContext>(option =>
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("DefultConnection"));
             });
 
-            builder.Services.Configure<ApiBehaviorOptions>(Option =>
-            {
-                Option.InvalidModelStateResponseFactory = (ActionContext) =>
-                {
-                    var errors = ActionContext.ModelState.Where(P => P.Value.Errors.Count() > 0)
-                                                         .SelectMany(p => p.Value.Errors)
-                                                         .Select(E => E.ErrorMessage)
-                                                         .ToList();
-                    var response = new ApiValidationErrorResponse()
-                    {
-                        Errors = errors
-                    };
-                    return new BadRequestObjectResult(response);
-                };
-            });
+
 
             var app = builder.Build();
 
@@ -74,7 +58,7 @@ namespace Ecom.API
                 var logger = LoggerFactory.CreateLogger<Program>();
                 logger.LogError(ex, "an error occured during migration");
             }
-
+            app.UseCors("CORSPolicy");
             app.UseMiddleware<ExceptionMiddleware>();
 
 

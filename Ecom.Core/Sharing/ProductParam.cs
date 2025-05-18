@@ -10,6 +10,8 @@ namespace Ecom.Core.Sharing
     {
         //string? sort , int? categoryId , int PageSize, int pageNumber
         public string? sort { get; set; }
+
+        public string? Search { get; set; }
         public int? categoryId { get; set; }
         private int MaxPageSize { get; set; } = 6;
         private int _pageSize = 3;
