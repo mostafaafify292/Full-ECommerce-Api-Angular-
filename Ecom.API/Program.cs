@@ -37,7 +37,7 @@ namespace Ecom.API
 
             builder.Services.AddDbContext<AppDbContext>(option =>
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("DefultConnection"));
+                  option.UseSqlServer(builder.Configuration.GetConnectionString("DefultConnection"));
             });
 
 
