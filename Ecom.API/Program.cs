@@ -27,12 +27,17 @@ namespace Ecom.API
             builder.Services.AddApplicationServices();
             builder.Services.AddSwaggerServices();
 
-            builder.Services.AddCors(op =>
-            op.AddPolicy("CORSPolicy", builder =>
+            builder.Services.AddCors(options =>
             {
-                builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:4200");
-            })
-            );
+                options.AddPolicy("CORSPolicy", builder =>
+                {
+                    builder
+                        .WithOrigins("http://localhost:4200", "https://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
 
 
             builder.Services.AddDbContext<AppDbContext>(option =>
@@ -58,7 +63,7 @@ namespace Ecom.API
                 var logger = LoggerFactory.CreateLogger<Program>();
                 logger.LogError(ex, "an error occured during migration");
             }
-            app.UseCors("CORSPolicy");
+
             app.UseMiddleware<ExceptionMiddleware>();
 
 
@@ -71,7 +76,7 @@ namespace Ecom.API
             app.UseStatusCodePagesWithReExecute("/Errors/{0}");
 
             app.UseHttpsRedirection();
-
+            app.UseCors("CORSPolicy");
             app.UseAuthorization();
 
 

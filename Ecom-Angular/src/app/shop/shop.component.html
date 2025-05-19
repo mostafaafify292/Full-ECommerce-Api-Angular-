@@ -1,0 +1,85 @@
+<div class="container mt-5">
+  <div class="row">
+    <h1 class="main-title">Shopping</h1>
+
+    <!-- Sidebar -->
+    <section class="col-md-3">
+      <div class="sidebar">
+        <h4 class="section-title">Sorting</h4>
+        <div class="custom-select-wrapper mb-4">
+          <select class="form-select">
+            <option value="Name">Name</option>
+            <option value="PriceAsn">Price:min-max</option>
+            <option value="PriceDsn">Price:max-min</option>
+          </select>
+        </div>
+
+        <h4 class="section-title">Categories</h4>
+        <ul class="list-group custom-list-group">
+          <li class="list-group-item custom-list-item">Laptop</li>
+          <li class="list-group-item custom-list-item">Mobile</li>
+          <li class="list-group-item custom-list-item">Watch</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section class="col-md-9">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="paging-container">
+          <span class="text-dark">showing 3 of 5</span>
+        </div>
+        <div class="search-container">
+          <div class="input-group search-bar">
+            <input type="text" class="form-control" placeholder="Search..." />
+            <input type="button" class="btn btn-danger" value="Search" />
+            <input type="button" class="btn btn-dark" value="Reset" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="product-item col-lg-4 col-md-6">
+          <!-- الكرت بالكامل -->
+          <div class="card h-100 position-relative">
+            <!-- أيقونة المفضلة -->
+            <button class="btn favorite-icon position-absolute">
+              <i class="fa fa-bookmark"></i>
+            </button>
+
+            <img class="card-image-top" />
+
+            <div class="card-body">
+              <div class="thumbnails mb-3">
+                <img src="" class="thumbnails-img small-img" alt="" />
+              </div>
+
+              <h5 class="card-title">Lorem, ipsum dolor.</h5>
+
+              <p class="card-text">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque
+                distinctio assumenda repellat!
+              </p>
+
+              <p class="price">
+                <span class="old-price">{{ 1000 | currency }}</span>
+                {{ 900 | currency }}
+              </p>
+
+              <div class="rating mb-3"></div>
+
+              <div class="d-flex justify-content-between align-items-start">
+                <button class="btn btn-dark">
+                  <i class="fa fa-shopping-cart"></i> Add To Cart
+                </button>
+                <button class="btn btn-success">
+                  <i class="fa fa-info-circle"></i> Details
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

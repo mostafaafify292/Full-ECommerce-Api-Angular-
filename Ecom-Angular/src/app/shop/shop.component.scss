@@ -1,0 +1,107 @@
+$primary-color: #7961ff;
+$secondary-color: #343a40;
+$background-color: #f8f9fa;
+$text-color: #212529;
+$border-radius: 0.5rem;
+$transition-duration: 0.3s;
+$danger-color: #dc3545;
+$star-color : #ffc107;
+
+.custom-list-group {
+    .custom-list-item {
+        cursor: pointer;
+        transition: background-color $transition-duration ease, color $transition-duration ease;
+
+        &:hover {
+            background-color: rgba(255, 111, 97, 0.1);
+        }
+
+        &.active {
+            background-color: $primary-color;
+            border-color: $primary-color;
+            color: #fff;
+        }
+    }
+}
+
+//--------------------------------------------------------------//
+
+.favorite-icon {
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    background-color: white;
+    color: $primary-color;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    transition: background-color $transition-duration, color $transition-duration;}
+
+.card {
+    border: 1px solid #f2eeee;
+    border-radius: 10px;
+    height: 200px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 25px rgba(0, 5, 5, 0.1);
+    }
+
+    .card-img-top {
+        border-radius: 150px 150px 0 0;
+ 
+    }
+}
+
+.thumbnails {
+    display: flex;
+    justify-content: start;
+    gap: 0.4rem;
+
+    .small-img {
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        border: 1px solid transparent;
+        transition: border-color 0.3s;
+
+        &:hover {
+            border-color: $primary-color;
+        }
+    }
+}
+.card-body {
+    position: relative;
+    padding: 0.7rem;
+    background: white;
+    border-radius: 0 0 15px 15px;
+
+    .card-title {
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+        color: $primary-color;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+        margin-bottom: 0.8rem;
+        color: $secondary-color;
+    }
+
+    .price {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+
+        .old-price {
+            text-decoration: line-through;
+            color: $danger-color;
+            margin-right: 0.5rem;
+        }
+    } }
