@@ -1,0 +1,71 @@
+/* Navbar background */
+.navbar {
+  background: linear-gradient(to right, #4e54c8, #8f94fb); /* Blue to purple gradient */
+  padding: 10px 20px;
+}
+
+/* Logo image */
+.navbar .logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+/* Italic brand text */
+.navbar-brand i {
+  font-style: italic;
+  color: white;
+}
+
+/* Nav links */
+.navbar-nav .nav-link {
+  color: white;
+  font-weight: 500;
+  margin: 0 10px;
+  transition: 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffd700; /* Optional: gold/yellow hover */
+}
+
+/* Search bar styling */
+.input-group input.form-control {
+  border-radius: 20px 0 0 20px;
+  border: none;
+  padding: 8px 12px;
+}
+
+.input-group .btn {
+  border-radius: 0 20px 20px 0;
+  background-color: #ff2e63;
+  color: white;
+  border: none;
+}
+
+.input-group .btn:hover {
+  background-color: #e02354;
+}
+
+/* Icons */
+.material-icons {
+  color: white;
+  vertical-align: middle;
+}
+
+/* Account and cart icons */
+.navbar-nav .nav-item .nav-link i {
+  font-size: 24px;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.dropdown-item i {
+  float: right;
+  color: #4e54c8;
+}

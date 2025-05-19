@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <a routerLink="/" class="navbar-brand">
+      <img src="./favicon.ico" class="logo" alt="Logo" />
+      <i class="text-dark">Afify-Tech</i>
+    </a>
+
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a routerLink="/" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Shopping</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">About Us</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Best Seller</a></li>
+      </ul>
+
+      <form class="d-flex mx-auto">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search...">
+          <button class="btn btn-outline-secondary" type="button">
+            <i class="material-icons">search</i>
+          </button>
+        </div>
+      </form>
+
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="material-icons">shopping_cart</i>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+            <i class="material-icons">account_circle</i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Register <i class="fa fa-user-plus"></i></a></li>
+            <li><a class="dropdown-item" href="#">Login <i class="fa fa-sign-in"></i></a></li>
+            <li><a class="dropdown-item" href="#">My Order <i class="fa fa-list"></i></a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
