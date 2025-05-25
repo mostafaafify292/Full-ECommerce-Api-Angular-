@@ -1,0 +1,36 @@
+<div class="card h-100">
+  <img
+    src="https://eservice-store.com/image/cache/catalog/Laptop/LENOVO%20LOQ%2015IAX9/Lenovo-Loq-15iRX9-Gaming-Core-i7-13650HX-16GB-512GB-SSD-RTX-4050-6GB-15-500x500.jpg"
+    class="card-image-top"
+  />
+  <div class="card-body">
+    <div class="thumbnails mb-3">
+      @for (item of Product.photos; track $index) {
+      <img
+        src="http://localhost:4200/{{ item.imageName }} "
+        class="thumbnails-img small-img"
+      />
+      }
+    </div>
+    <h5 class="card-title">{{ Product.name }}</h5>
+    <p class="card-text">
+      {{ Product.description }}
+    </p>
+    <p class="price">
+      <span class="old-price">{{ Product.oldPrice | currency }}</span>
+      {{ Product.newPrice | currency }}
+    </p>
+    <div class="rating mb-3"></div>
+    <button class="btn btn-outline-primary favorite-icon">
+      <i class="fa fa-bookmark"></i>
+    </button>
+    <div class="d-flex justify-content-between align-items-start">
+      <button class="btn btn-dark">
+        <i class="fa fa-shopping-cart"></i>Add To Cart
+      </button>
+      <button class="btn btn-success">
+        <i class="fa fa-info-circle"></i>Details
+      </button>
+    </div>
+  </div>
+</div>

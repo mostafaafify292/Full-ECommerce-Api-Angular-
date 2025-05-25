@@ -64,7 +64,7 @@ namespace Ecom.API
                 logger.LogError(ex, "an error occured during migration");
             }
 
-            app.UseMiddleware<ExceptionMiddleware>();
+    
 
 
             // Configure the HTTP request pipeline.
@@ -73,15 +73,17 @@ namespace Ecom.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("CORSPolicy");
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseStaticFiles();
             app.UseStatusCodePagesWithReExecute("/Errors/{0}");
 
             app.UseHttpsRedirection();
-            app.UseCors("CORSPolicy");
             app.UseAuthorization();
 
 
             app.MapControllers();
-            app.UseStaticFiles();
             app.Run();
         }
     }
