@@ -62,7 +62,7 @@ namespace Talabat.APIS.Middleware
             });
             if (dateNow-TimesTemp < _rateLimitWindow)
             {
-                if (count >= 8 )
+                if (count >= 20 )
                 {
                     return false;
                     
@@ -71,7 +71,8 @@ namespace Talabat.APIS.Middleware
             }
             else
             {
-                _memoryCache.Set(cashKey, (TimesTemp, count ), _rateLimitWindow);
+               // _memoryCache.Set(cashKey, (TimesTemp, count ), _rateLimitWindow);
+                _memoryCache.Set(cashKey, (dateNow, 1), _rateLimitWindow);
             }
             return true;
         }

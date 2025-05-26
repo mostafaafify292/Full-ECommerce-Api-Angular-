@@ -25,6 +25,7 @@
     "express": "^4.18.2",
     "font-awesome": "^4.7.0",
     "material-icons": "^1.13.14",
+    "ngx-bootstrap": "^19.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

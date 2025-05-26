@@ -1,13 +1,13 @@
 <div class="card h-100">
   <img
-    src="https://eservice-store.com/image/cache/catalog/Laptop/LENOVO%20LOQ%2015IAX9/Lenovo-Loq-15iRX9-Gaming-Core-i7-13650HX-16GB-512GB-SSD-RTX-4050-6GB-15-500x500.jpg"
+    [src]="'https://localhost:44330' + Product.photos[0].imageName"
     class="card-image-top"
   />
   <div class="card-body">
     <div class="thumbnails mb-3">
       @for (item of Product.photos; track $index) {
       <img
-        src="http://localhost:4200/{{ item.imageName }} "
+        [src]="'https://localhost:44330' + item.imageName"
         class="thumbnails-img small-img"
       />
       }

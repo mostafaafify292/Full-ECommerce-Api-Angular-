@@ -13,13 +13,7 @@ import { ShopModule } from './shop/shop.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CoreModule,
-    SharedModule,
-    ShopModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, CoreModule, ShopModule],
   providers: [provideClientHydration(), provideHttpClient()],
   bootstrap: [AppComponent],
 })

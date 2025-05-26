@@ -5,17 +5,27 @@
       <div class="sidebar">
         <h4 class="section-title">Sorting</h4>
         <div class="custom-select-wrapper mb-4">
-          <select class="form-select">
-            <option value="Name">Name</option>
-            <option value="PriceAsn">Price:min-max</option>
-            <option value="PriceDsn">Price:max-min</option>
+          <select
+            #SortSelected
+            class="form-select"
+            (change)="SotingByPrice($event)"
+          >
+            @for (item of SortingOption; track $index) {
+            <option [value]="item.value">{{ item.name }}</option>
+            }
           </select>
         </div>
         <h4 class="section-title">Categories</h4>
         <ul class="list-group custom-list-group">
-          <li class="list-group-item custom-list-item">Laptop</li>
-          <li class="list-group-item custom-list-item">Mobile</li>
-          <li class="list-group-item custom-list-item">Watch</li>
+          @for (item of Category; track $index) {
+          <li
+            [class.active]="item.id == ProductParams.CategoryId"
+            (click)="SelectedId(item.id)"
+            class="list-group-item custom-list-item"
+          >
+            {{ item.name }}
+          </li>
+          }
         </ul>
       </div>
     </section>
@@ -26,9 +36,26 @@
         </div>
         <div class="search-container">
           <div class="input-group search-bar">
-            <input type="text" class="form-control" placeholder="Search..." />
-            <input type="button" class="btn btn-danger" value="Search" />
-            <input type="button" class="btn btn-dark" value="Reset" />
+            <input
+              type="text"
+              #search
+              (keyup)="OnSearch(search.value)"
+              (keyup.enter)="OnSearch(search.value)"
+              class="form-control"
+              placeholder="Search..."
+            />
+            <input
+              type="button"
+              (click)="OnSearch(search.value)"
+              class="btn btn-danger"
+              value="Search"
+            />
+            <input
+              type="button"
+              (click)="ResetValue()"
+              class="btn btn-dark"
+              value="Reset"
+            />
           </div>
         </div>
       </div>
@@ -40,8 +67,16 @@
             class="product-item col-lg-4 col-md-6"
           ></app-shop-item>
         </ng-container>
-
         }
+      </div>
+      <!-- Pagination -->
+      <div class="d-flex justify-content-center align-items-center mt-5">
+        <pagination
+          [itemsPerPage]="1"
+          [totalItems]="TotalCount"
+          (pageChanged)="OnChangePage($event.page)"
+          [boundaryLinks]="true"
+        ></pagination>
       </div>
     </section>
   </div>

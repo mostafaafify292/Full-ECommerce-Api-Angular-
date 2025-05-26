@@ -26,6 +26,7 @@ namespace Ecom.API.Controllers
         }
         [HttpGet("get-all")]
         public async Task<IActionResult> get([FromQuery]ProductParam productParam)
+        
         {
             
                 var product = await _unit.productRepository.GetAllAsync(productParam);
