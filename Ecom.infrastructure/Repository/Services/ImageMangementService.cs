@@ -18,6 +18,35 @@ namespace Ecom.infrastructure.Repository.Services
             _fileProvider = fileProvider;
         }
         public async Task<List<string>> AddImageAsync(IFormFileCollection files, string folderName) {
+            var saveImageSrc = new List<string>();
+
+            if (files.Count == 0)
+                return saveImageSrc;
+
+            folderName = folderName.Trim(); 
+            var imageDirectory = Path.Combine("wwwroot", "Images", folderName);
+
+            if (!Directory.Exists(imageDirectory))
+            {
+                Directory.CreateDirectory(imageDirectory);
+            }
+
+            foreach (var item in files)
+            {
+                var imageName = Path.GetFileName(item.FileName); 
+                var imageSrc = $"/Images/{folderName}/{imageName}";
+                var fullPath = Path.Combine(imageDirectory, imageName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await item.CopyToAsync(stream);
+                }
+
+                saveImageSrc.Add(imageSrc);
+            }
+
+            return saveImageSrc;
+        }
             //{
             //    //C:\Users\mostafa.afifi\Desktop\Ecom Full Proj\Ecom\Ecom.API\wwwroot\Files\
             //    //Get FolderPath 
@@ -30,29 +59,6 @@ namespace Ecom.infrastructure.Repository.Services
             //    var fileStream = new FileStream(FullPath, FileMode.Create);
             //    files.CopyTo(fileStream);
             //    return fileName;
-            var saveImageSrc = new List<string>();
-            var imageDirectory = Path.Combine("wwwroot", "Images", folderName); 
-            if (Directory.Exists(imageDirectory) is not true)
-            {
-                Directory.CreateDirectory(imageDirectory);
-            }
-            foreach (var item in files)
-            {
-                if (files.Count() > 0)
-                {
-                    //get image name
-                    var ImageName = item.FileName;
-                    var imageSrc = $"/Images/{folderName}/{ImageName}";
-                    var fullPath = Path.Combine(imageDirectory, ImageName);
-                    using (FileStream stream = new FileStream(fullPath, FileMode.Create)) 
-                    {
-                        await item.CopyToAsync(stream);
-                    }
-                    saveImageSrc.Add(imageSrc);
-                }
-            }
-            return saveImageSrc;
-        }
 
         public void RemoveImageAsync(string folderName )
         {

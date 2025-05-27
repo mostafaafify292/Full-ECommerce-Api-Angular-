@@ -35,7 +35,7 @@ namespace Ecom.API.Controllers
                     return BadRequest(new ApiResponse(400));
                 }
                 var totalCount = await _unit.productRepository.CountAsync();
-                return Ok(new Pagination<ProductDTO>(productParam.pageNumber , productParam.PageSize ,totalCount , product));
+                return Ok(new Pagination<ProductDTO>(productParam.pageNumber , productParam.PageSize , product.TotalCount, product.products));
            
         }
         [HttpGet("get-by-id/{id}")]

@@ -64,8 +64,10 @@ namespace Talabat.APIS.Middleware
             {
                 if (count >= 20 )
                 {
-                    return false;
-                    
+                    if (!_env.IsDevelopment())
+                    {
+                        return false;
+                    }
                 }
                 _memoryCache.Set(cashKey, (TimesTemp, count += 1), _rateLimitWindow);
             }

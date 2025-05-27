@@ -11,6 +11,7 @@ namespace Ecom.Core.DTO
 {
     public record ProductDTO
     {
+        public int id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal NewPrice { get; set; }
@@ -23,6 +24,13 @@ namespace Ecom.Core.DTO
         public string CategoryName { get; set; }
        // public string CategoryDescription { get; set; }
 
+    }
+
+    // i do that to can calculate count on pagination with filter
+    public record ReturnProductDTO
+    {
+        public List<ProductDTO> products { get; set; }
+        public int TotalCount { get; set; }
     }
 
     public record PhotoDTO

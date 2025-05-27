@@ -1,0 +1,132 @@
+<div class="container my-5">
+  <div class="row">
+    <!-- Images Column -->
+    <div class="col-md-5">
+      <div class="main-img">
+        <lib-ngx-image-zoom
+          [thumbImage]="'https://localhost:44330' + mainImage"
+          [fullImage]="'https://localhost:44330' + mainImage"
+          [magnification]="1.3"
+          [enableScrollZoom]="true"
+          [lensWidth]="200"
+          [lensHeight]="200"
+          [enableLens]="true"
+        >
+        </lib-ngx-image-zoom>
+        <!-- <img
+          class="img-fluid"
+          [src]="'https://localhost:44330' + product?.photos[0].imageName"
+          alt="Product"
+        /> -->
+        <div class="row my-3 previews">
+          @for (item of product?.photos; track $index) {
+            <div class="col-3">
+              <img
+                (click)="replaceImage(item.imageName)"
+                class="w-100"
+                [src]="'https://localhost:44330' + item.imageName"
+                alt="Photo"
+              />
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Column on the right -->
+    <div class="col-md-7">
+      <div class="main-description px-2">
+        <div class="category text-bold">
+          Category : {{ product?.categoryName }}
+        </div>
+        <div class="product-title text-bold my-3">{{ product?.name }}</div>
+
+        <div class="price-area my-4">
+          <p class="old-price mb-1">
+            <del>{{ product?.oldPrice | currency }}</del>
+            <span class="old-price-discount text-danger">
+              ({{
+                ((product?.oldPrice - product?.newPrice) / product?.oldPrice) *
+                  100 | number: "1.0-0"
+              }}% off)
+            </span>
+          </p>
+          <p class="new-price text-bold mb-1">
+            {{ product?.newPrice | currency }}
+          </p>
+        </div>
+
+        <!-- Quantity Controls -->
+        <p class="text-danger">
+          quantity: 1
+          <button class="btn btn-danger text-white">
+            <i class="fa fa-minus"></i>
+          </button>
+          &nbsp;
+          <button class="btn btn-dark text-white">
+            <i class="fa fa-plus"></i>
+          </button>
+        </p>
+
+        <!-- Buttons -->
+        <div class="buttons d-flex my-5 flex-wrap gap-2">
+          <a href="#" class="btn custom-btn shadow"
+            ><i class="fa fa-heart"></i> Wishlist</a
+          >
+          <button class="btn custom-btn shadow">
+            <i class="fa fa-shopping-cart"></i> Add to cart
+          </button>
+          <button class="btn custom-btn shadow">
+            <i class="fa fa-shopping-bag"></i> Shopping
+          </button>
+          <div class="block quantity">
+            <input
+              type="number"
+              class="form-control"
+              id="cart_quantity"
+              value="1"
+              min="0"
+              max="5"
+              placeholder="Quantity"
+              name="cart_quantity"
+            />
+          </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="product-details my-4">
+          <p class="details-title text-color mb-1">Product Details</p>
+          <p class="description">{{ product?.description }}</p>
+        </div>
+
+        <!-- Questions -->
+        <div class="row questions bg-light p-3">
+          <div class="col-md-1 icon">
+            <i class="fa-brands fa-rocketchat questions-icon"></i>
+          </div>
+          <div class="col-md-11 text">
+            Have a question about our products at E-Store? Feel free to contact
+            our representatives via live chat or email.
+          </div>
+        </div>
+
+        <!-- Delivery Info -->
+        <div class="delivery my-4">
+          <p class="font-weight-bold mb-0">
+            <span><i class="fa-solid fa-truck"></i></span>
+            <b>Delivery done in 3 days from date of purchase</b>
+          </p>
+          <p class="text-secondary">Order now to get this product delivery</p>
+        </div>
+
+        <div class="delivery-options my-4">
+          <p class="font-weight-bold mb-0">
+            <span><i class="fa-solid fa-filter"></i></span>
+            <b>Delivery options</b>
+          </p>
+          <p class="text-secondary">View delivery options here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

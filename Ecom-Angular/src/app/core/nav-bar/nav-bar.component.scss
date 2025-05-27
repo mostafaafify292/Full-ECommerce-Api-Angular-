@@ -1,71 +1,93 @@
-/* Navbar background */
+// styles.scss
+$primary-color: #3f51b5;
+$secondary-color: #5c6bc0;
+$accent-color: #ff4081;
+$light-color: #ffffff;
+$dark-color: #212121;
+$navbar-height: 60px;
+$navbar-padding: 1rem;
+$input-border-radius: 0.5rem;
+$transition-duration: 0.3s;
+
 .navbar {
-  background: linear-gradient(to right, #4e54c8, #8f94fb); /* Blue to purple gradient */
-  padding: 10px 20px;
+  background: linear-gradient(45deg, $primary-color, $secondary-color);
+  padding: $navbar-padding;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  .navbar-brand {
+    .logo {
+      height: $navbar-height;
+    }
+  }
+
+  .navbar-nav {
+    .nav-item {
+      .nav-link {
+        color: $light-color;
+        font-size: 1.1rem;
+        padding: 0.75rem 1rem;
+        transition: color $transition-duration ease, background-color $transition-duration ease;
+
+        &:hover {
+          color: $accent-color;
+          background-color: rgba(255, 255, 255, 0.1);
+          border-radius: 0.5rem;
+        }
+
+        &.active {
+          color: $accent-color;
+          background-color: rgba(255, 255, 255, 0.1);
+          border-radius: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .form-inline {
+    .input-group {
+      .form-control {
+        border-radius: $input-border-radius 0 0 $input-border-radius;
+        border: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      }
+
+      .btn-light {
+        border-radius: 0 $input-border-radius $input-border-radius 0;
+        border: none;
+        background-color: $accent-color;
+        color: $light-color;
+        transition: background-color $transition-duration ease;
+
+        &:hover {
+          background-color: darken($accent-color, 10%);
+        }
+      }
+    }
+  }
+
+  .dropdown-menu {
+    background-color: $dark-color;
+    border-radius: 0.5rem;
+
+    a {
+      color: $light-color;
+      padding: 0.75rem 1rem;
+      transition: background-color $transition-duration ease;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
 }
 
-/* Logo image */
-.navbar .logo {
-  width: 30px;
-  height: 30px;
-  margin-right: 5px;
-}
+@media (max-width: 992px) {
+  .navbar {
+    padding: 0 15px;
 
-/* Italic brand text */
-.navbar-brand i {
-  font-style: italic;
-  color: white;
-}
-
-/* Nav links */
-.navbar-nav .nav-link {
-  color: white;
-  font-weight: 500;
-  margin: 0 10px;
-  transition: 0.3s;
-}
-
-.navbar-nav .nav-link:hover {
-  color: #ffd700; /* Optional: gold/yellow hover */
-}
-
-/* Search bar styling */
-.input-group input.form-control {
-  border-radius: 20px 0 0 20px;
-  border: none;
-  padding: 8px 12px;
-}
-
-.input-group .btn {
-  border-radius: 0 20px 20px 0;
-  background-color: #ff2e63;
-  color: white;
-  border: none;
-}
-
-.input-group .btn:hover {
-  background-color: #e02354;
-}
-
-/* Icons */
-.material-icons {
-  color: white;
-  vertical-align: middle;
-}
-
-/* Account and cart icons */
-.navbar-nav .nav-item .nav-link i {
-  font-size: 24px;
-}
-
-/* Dropdown */
-.dropdown-menu {
-  background-color: white;
-  border-radius: 8px;
-  padding: 10px;
-}
-
-.dropdown-item i {
-  float: right;
-  color: #4e54c8;
+    .form-inline {
+      max-width: none;
+    }
+  }
 }

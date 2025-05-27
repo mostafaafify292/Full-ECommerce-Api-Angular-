@@ -1,0 +1,123 @@
+.main-img {
+    text-align: center;
+}
+
+::ng-deep .ngxImageZoomContainer>img {
+    max-height: 300px;
+}
+
+.previews img {
+    border: 2px solid #ddd;
+    padding: 5px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.previews img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.product-title {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.price-area {
+    font-size: 1.2rem;
+}
+
+.old-price-discount {
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons .block {
+    margin-right: 10px;
+}
+
+.buttons .custom-btn {
+    background-color: #ff6347;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.buttons .custom-btn:hover {
+    background-color: #e5533d;
+}
+
+.quantity input {
+    width: 70px;
+}
+
+.details-title {
+    font-size: 1.3rem;
+    color: #ff6347;
+}
+
+.loader {
+    position: relative;
+    font-family: sans-serif;
+    display: flex;
+    height: auto;
+    width: auto;
+    letter-spacing: 3px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+    font-size: 1.45em;
+    color: transparent;
+    background: linear-gradient(to right, #fff 33.3%, #008cdd 33.3%, #008cdd 66.6%, #fff 66.6%) no-repeat;
+    background-size: 300%;
+    background-position: 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: infinite 1.4s load-loop ease;
+}
+
+.loader::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: block;
+    background: linear-gradient(to right, #008cdd 33.3%, transparent 33.3%, transparent 66.6%, #008cdd 66.6%) no-repeat;
+    background-size: 300%;
+    background-position: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    animation: infinite 1.4s load-loop ease;
+}
+
+@keyframes load-loop {
+    0% {
+        background-position: 100%;
+    }
+
+    40% {
+        background-position: 50%;
+    }
+
+    50% {
+        background-position: 50%;
+    }
+
+    90% {
+        background-position: 0%;
+    }
+
+    100% {
+        background-position: 0%;
+    }
+}
