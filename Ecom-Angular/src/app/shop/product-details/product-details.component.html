@@ -13,11 +13,6 @@
           [enableLens]="true"
         >
         </lib-ngx-image-zoom>
-        <!-- <img
-          class="img-fluid"
-          [src]="'https://localhost:44330' + product?.photos[0].imageName"
-          alt="Product"
-        /> -->
         <div class="row my-3 previews">
           @for (item of product?.photos; track $index) {
             <div class="col-3">

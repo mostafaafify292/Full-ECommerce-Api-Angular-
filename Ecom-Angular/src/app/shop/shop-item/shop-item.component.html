@@ -6,10 +6,10 @@
   <div class="card-body">
     <div class="thumbnails mb-3">
       @for (item of Product.photos; track $index) {
-      <img
-        [src]="'https://localhost:44330' + item.imageName"
-        class="thumbnails-img small-img"
-      />
+        <img
+          [src]="'https://localhost:44330' + item.imageName"
+          class="thumbnails-img small-img"
+        />
       }
     </div>
     <h5 class="card-title">{{ Product.name }}</h5>
@@ -30,7 +30,7 @@
       </button>
       <button class="btn btn-success">
         <i
-          routerLink="/product-details/{{ Product.id }}"
+          [routerLink]="['product-details', Product.id]"
           class="fa fa-info-circle"
         ></i
         >Details

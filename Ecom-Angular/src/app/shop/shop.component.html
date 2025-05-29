@@ -1,3 +1,4 @@
+<router-outlet></router-outlet>
 <div class="container mt-5">
   <div class="row">
     <h1 class="main-title">Shopping</h1>
@@ -11,7 +12,7 @@
             (change)="SotingByPrice($event)"
           >
             @for (item of SortingOption; track $index) {
-            <option [value]="item.value">{{ item.name }}</option>
+              <option [value]="item.value">{{ item.name }}</option>
             }
           </select>
         </div>
@@ -21,13 +22,13 @@
             All Products
           </li>
           @for (item of Category; track $index) {
-          <li
-            [class.active]="item.id == ProductParams.CategoryId"
-            (click)="SelectedId(item.id)"
-            class="list-group-item custom-list-item"
-          >
-            {{ item.name }}
-          </li>
+            <li
+              [class.active]="item.id == ProductParams.CategoryId"
+              (click)="SelectedId(item.id)"
+              class="list-group-item custom-list-item"
+            >
+              {{ item.name }}
+            </li>
           }
         </ul>
       </div>
@@ -67,12 +68,12 @@
       </div>
       <div class="row g-4">
         @for (item of product; track $index) {
-        <ng-container>
-          <app-shop-item
-            [Product]="item"
-            class="product-item col-lg-4 col-md-6"
-          ></app-shop-item>
-        </ng-container>
+          <ng-container>
+            <app-shop-item
+              [Product]="item"
+              class="product-item col-lg-4 col-md-6"
+            ></app-shop-item>
+          </ng-container>
         }
       </div>
       <!-- Pagination -->

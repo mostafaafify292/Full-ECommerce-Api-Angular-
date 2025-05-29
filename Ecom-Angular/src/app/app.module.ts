@@ -8,14 +8,41 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { provideHttpClient } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { ShopModule } from './shop/shop.module';
 import { HomeComponent } from './home/home.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { RouterLink } from '@angular/router';
+import { loaderInterceptor } from './core/interceptor/loader.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
-  imports: [BrowserModule, AppRoutingModule, CoreModule, ShopModule],
-  providers: [provideClientHydration(), provideHttpClient()],
+  imports: [
+    BrowserModule,
+    RouterLink,
+    AppRoutingModule,
+    CoreModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      positionClass: 'toast-top-right',
+      countDuplicates: true,
+      timeOut: 1500,
+      progressBar: true,
+    }),
+  ],
+  providers: [
+    provideClientHydration(),
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: HTTP_INTERCEPTORS, useClass: loaderInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
