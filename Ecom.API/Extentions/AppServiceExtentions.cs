@@ -16,7 +16,7 @@ namespace Ecom.API.Extentions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IImageMangementService, ImageMangementService>();
             services.AddScoped<IProductRepository, ProductRepository>();
-
+            services.AddScoped<ICustomerBasketRepository, CustomerBasketRepository>();
             services.AddMemoryCache();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

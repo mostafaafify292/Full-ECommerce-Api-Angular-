@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using StackExchange.Redis;
 using System.Threading.Tasks;
 using Talabat.APIS.Errors;
 using Talabat.APIS.Middleware;
@@ -38,11 +39,18 @@ namespace Ecom.API
                 });
             });
 
-
+            // connection for SQL
             builder.Services.AddDbContext<AppDbContext>(option =>
             {
                   option.UseSqlServer(builder.Configuration.GetConnectionString("DefultConnection"));
             });
+            //Connection for Redis
+            builder.Services.AddSingleton<IConnectionMultiplexer>((serviceProvider) =>
+            {
+                var connection = builder.Configuration.GetConnectionString("Redis");
+                return ConnectionMultiplexer.Connect(connection);
+            }
+            );
 
 
 
