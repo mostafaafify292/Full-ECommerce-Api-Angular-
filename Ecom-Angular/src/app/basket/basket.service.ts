@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
-import { IBasket } from '../shared/Models/Basket';
+import { Basket, IBasket, IBasketItem } from '../shared/Models/Basket';
+import { IProduct } from '../shared/Models/Product';
 
 @Injectable({
   providedIn: 'root',
@@ -16,24 +17,66 @@ export class BasketService {
     return this.http.get(this.baseURL + 'Basket/get-basket-item/' + id).pipe(
       map((value: IBasket) => {
         this.basketSource.next(value);
+        console.log(value)
       }),
     );
   }
 
   SetBasket(basket: IBasket) {
+    console.log('Basket to send:', basket);
     return this.http
       .post(this.baseURL + 'Basket/update-basket/', basket)
       .subscribe({
         next: (value: IBasket) => {
           this.basketSource.next(value);
+          console.log(value)
         },
         error(err) {
-          console.log(err);
+          console.log('error***'+ err);
         },
       });
   }
 
   GetCurrentValue() {
-    return this.basketSource.value;
+    console.log('GetCurrentValue'+this.basketSource.value)
+    return this.basketSource.value;  
+  }
+
+  addItemToBasket(product : IProduct ,quantity:number =1){
+    const itemToAdd = this.MapProductToBasketItem(product,quantity)
+    const basket = this.GetCurrentValue()??this.CreateBasket()
+    basket.basketItems = this.AddOrUpdate(basket.basketItems ,itemToAdd,quantity)
+    return this.SetBasket(basket);
+  }
+
+  private AddOrUpdate(basketItems: IBasketItem[], itemToAdd: IBasketItem, quantity: number): IBasketItem[] {
+    const index = basketItems.findIndex(i => i.Id === itemToAdd.Id);
+    console.log('index => '+index);
+    if (index == -1) {
+      itemToAdd.Quantity =quantity;
+      basketItems.push(itemToAdd);
+    }else{
+      basketItems[index].Quantity+=quantity;
+    }
+    return basketItems
+  }
+
+  private CreateBasket(): IBasket {
+    const basket = new Basket()
+    localStorage.setItem('basketId',basket.Id)
+    console.log('CreatedBasket=>id = '+basket.Id)
+    return basket;
+  }
+
+  private MapProductToBasketItem(product: IProduct, quantity: number) :IBasketItem{
+    return{
+      Id : product.id.toString(),
+      Category :product.categoryName,
+      Name :product.name,
+      ImageURL : product.photos[0].imageName,
+      Price :product.newPrice,
+      Quantity : quantity
+
+    }
   }
 }

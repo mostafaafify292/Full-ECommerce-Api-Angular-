@@ -26,7 +26,7 @@ namespace Ecom.API.Controllers
             return Ok(basket ?? new CustomerBasket(id));
         }
         [HttpPost("update-basket")]
-        public async Task<IActionResult> add(CustomerBasket customerBasket)
+        public async Task<IActionResult> add([FromBody]CustomerBasket customerBasket)
         {
             var createdOrUpdatedBasket = await _basketRepository.UpdateBasketAsync(customerBasket);
             return Ok(createdOrUpdatedBasket);
