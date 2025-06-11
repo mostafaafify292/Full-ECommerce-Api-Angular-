@@ -22,35 +22,67 @@ export class BasketService {
     );
   }
 
+  
   SetBasket(basket: IBasket) {
-    console.log('Basket to send:', basket);
-    return this.http
-      .post(this.baseURL + 'Basket/update-basket/', basket)
-      .subscribe({
-        next: (value: IBasket) => {
-          this.basketSource.next(value);
-          console.log(value)
-        },
-        error(err) {
-          console.log('error***'+ err);
-        },
-      });
-  }
+  console.log('Basket to send:', basket);
+  return this.http
+    .post(this.baseURL + 'Basket/update-basket/', basket)
+    .subscribe({
+      next: (value: any) => {
+        // Normalize property names to PascalCase
+        const normalizedBasket: IBasket = {
+          Id: value.Id ?? value.id,
+          basketItems: (value.basketItems ?? value.basketitems ?? []).map((item: any) => ({
+            Id: item.Id ?? item.id,
+            Name: item.Name ?? item.name,
+            Quantity: item.Quantity ?? item.quantity,
+            ImageURL: item.ImageURL ?? item.imageURL,
+            Price: item.Price ?? item.price,
+            Category: item.Category ?? item.category,
+          })),
+        };
+
+        this.basketSource.next(normalizedBasket);
+        console.log('Normalized Basket:', normalizedBasket);
+      },
+      error(err) {
+        console.log('error***' + err);
+      },
+    });
+}
+
+  // SetBasket(basket: IBasket) {
+  //   console.log('Basket to send:', basket);
+  //   return this.http
+  //     .post(this.baseURL + 'Basket/update-basket/', basket)
+  //     .subscribe({
+  //       next: (value: IBasket) => {
+  //         this.basketSource.next(value);
+  //         console.log(value)
+  //       },
+  //       error(err) {
+  //         console.log('error***'+ err);
+  //       },
+  //     });
+  // }
 
   GetCurrentValue() {
-    console.log('GetCurrentValue'+this.basketSource.value)
+    console.log('GetCurrentValue'+this.basketSource)
     return this.basketSource.value;  
   }
 
   addItemToBasket(product : IProduct ,quantity:number =1){
     const itemToAdd = this.MapProductToBasketItem(product,quantity)
+    console.log('product item to add'+product.id)
     const basket = this.GetCurrentValue()??this.CreateBasket()
+    console.log(basket);
     basket.basketItems = this.AddOrUpdate(basket.basketItems ,itemToAdd,quantity)
     return this.SetBasket(basket);
   }
 
   private AddOrUpdate(basketItems: IBasketItem[], itemToAdd: IBasketItem, quantity: number): IBasketItem[] {
     const index = basketItems.findIndex(i => i.Id === itemToAdd.Id);
+    console.log('Compare IDs:', basketItems[0], 'vs', itemToAdd);
     console.log('index => '+index);
     if (index == -1) {
       itemToAdd.Quantity =quantity;
@@ -70,10 +102,10 @@ export class BasketService {
 
   private MapProductToBasketItem(product: IProduct, quantity: number) :IBasketItem{
     return{
-      Id : product.id.toString(),
+      Id : product.id?.toString(),
       Category :product.categoryName,
       Name :product.name,
-      ImageURL : product.photos[0].imageName,
+      ImageURL : product.photos[0]?.imageName,
       Price :product.newPrice,
       Quantity : quantity
 
