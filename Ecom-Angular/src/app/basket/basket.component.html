@@ -1,1 +1,78 @@
-<p>basket works!</p>
+<div *ngIf="basket?.id === null; else basketContent">
+  <div class="text-center text-danger">
+    <h4>Your basket is empty</h4>
+  </div>
+</div>
+
+<ng-template #basketContent>
+  <div class="container pt-4 flex-container">
+    <div class="basket-container">
+      <table class="table table-hover custom-table">
+        <thead>
+          <tr class="bg-info text-white">
+            <th>Product</th>
+            <th></th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of basket?.basketItems; index as i">
+            <td>
+              <a
+                [routerLink]="['/shop/product-details', item?.id]"
+                class="text-dark text-decoration-none"
+              >
+                {{ item?.name }}
+              </a>
+            </td>
+            <td>
+              <img
+                [src]="'https://localhost:44330' + item?.imageURL"
+                class="product-image img-fluid"
+                alt=""
+              />
+            </td>
+            <td class="description">
+              {{ item?.description }}
+            </td>
+            <td>{{ item?.price | currency }}</td>
+            <td>
+              <div class="d-flex justify-content-center align-items-center">
+                <button
+                  (click)="incrementQuantity(item)"
+                  class="btn btn-sm text-info"
+                >
+                  <i class="fa fa-plus"></i>
+                </button>
+                <span class="mx-2"> {{ item?.quantity }}</span>
+                <button
+                  (click)="DecrementQuantity(item)"
+                  class="btn btn-sm text-danger"
+                >
+                  <i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </td>
+            <td>{{ item?.price * item?.quantity | currency }}</td>
+            <td>
+              <button (click)="RemoveBasket(item)" class="btn btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="order-summary-container">
+      <!-- <app-order-total></app-order-total> -->
+      <a routerLink="/checkout" class="btn btn-dark w-100 mt-3">
+        Proceed to checkout
+      </a>
+    </div>
+  </div>
+</ng-template>
