@@ -12,6 +12,7 @@ export class ShopItemComponent {
   @Input() Product: IProduct;
 
   SetBasketValue(){
+    debugger
     console.log('===========>>'+this.Product.name)
     this._service.addItemToBasket(this.Product);
   }

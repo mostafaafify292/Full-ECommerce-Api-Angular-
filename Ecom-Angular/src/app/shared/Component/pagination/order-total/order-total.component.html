@@ -1,0 +1,24 @@
+<div class="order-summary bg-light text-uppercase text-info p-3 text-center">
+    Order Summary
+</div>
+<div class="order-details p-3">
+    <p style="font-style: italic;">Shipping will be added on total price</p>
+    @if (basketTotal) {
+    <ng-container>
+        <ul class="list-unstyled mb-4">
+            <li class="d-flex justify-content-between border-bottom py-3">
+                <strong class="text-muted">Order SubTotal</strong>
+                <strong>{{basketTotal.subTotal|currency}}</strong>
+            </li>
+            <li class="d-flex justify-content-between border-bottom py-3">
+                <strong class="text-muted">Order shipping</strong>
+                <strong>{{basketTotal.shipping|currency}}</strong>
+            </li>
+            <li class="d-flex justify-content-between border-bottom py-3">
+                <strong class="text-muted">Order total</strong>
+                <strong>{{basketTotal.total|currency}}</strong>
+            </li>
+        </ul>
+    </ng-container>
+    }
+</div>

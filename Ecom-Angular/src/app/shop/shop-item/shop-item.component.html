@@ -13,9 +13,19 @@
       }
     </div>
     <h5 class="card-title">{{ Product.name }}</h5>
-    <p class="card-text">
+    <!-- <p class="card-text">
       {{ Product.description }}
-    </p>
+    </p> -->
+    <p class="card-text">
+  <span class="desc-text">{{ Product.description }}</span>
+  <a
+    *ngIf="Product.description?.length > 150"
+    [routerLink]="['/shop/product-details', Product.id]"
+    class="read-more-link"
+  >
+    Read more
+  </a>
+</p>
     <p class="price">
       <span class="old-price">{{ Product.oldPrice | currency }}</span>
       {{ Product.newPrice | currency }}

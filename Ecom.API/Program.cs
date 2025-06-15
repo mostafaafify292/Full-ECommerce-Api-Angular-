@@ -3,8 +3,10 @@ using Ecom.API.Extentions;
 using Ecom.Core.Interfaces;
 using Ecom.Core.Services;
 using Ecom.infrastructure.Data;
+using Ecom.infrastructure.Data.Identity;
 using Ecom.infrastructure.Repository;
 using Ecom.infrastructure.Repository.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -44,6 +46,11 @@ namespace Ecom.API
             {
                   option.UseSqlServer(builder.Configuration.GetConnectionString("DefultConnection"));
             });
+            //Connection For Identity
+            builder.Services.AddDbContext<AppIdentityDbContext>(option =>
+            {
+                option.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+            });
             //Connection for Redis
             builder.Services.AddSingleton<IConnectionMultiplexer>((serviceProvider) =>
             {
@@ -58,11 +65,13 @@ namespace Ecom.API
 
             using var scope = app.Services.CreateScope();
             var services = scope.ServiceProvider;
-            var _dbcontext = services.GetRequiredService<AppDbContext>();
+            var _dbcontext = services.GetRequiredService<AppDbContext>(); //Context For Defult Connection For Sql
+            var _Identitydbcontext = services.GetRequiredService<AppIdentityDbContext>(); //Context For identity Connection For Sql
             var LoggerFactory = services.GetRequiredService<ILoggerFactory>();
             try
             {
                  await _dbcontext.Database.MigrateAsync(); //Update DataBase
+                 await _Identitydbcontext.Database.MigrateAsync(); //Update DataBase For Identity DB
                  await StoreContextSeeding.SeedAsync(_dbcontext); //Data Seeding
             }
             catch (Exception ex)

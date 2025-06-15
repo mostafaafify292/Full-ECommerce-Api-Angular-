@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Ecom.Core.Entites;
+using Ecom.Core.Entites.Identity;
 using Ecom.Core.Interfaces;
 using Ecom.Core.Services;
 using Ecom.infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,16 +19,26 @@ namespace Ecom.infrastructure.Repository
         private readonly AppDbContext _dbcontext;
         private readonly IMapper _mapper;
         private readonly IImageMangementService _imageMangement;
+        private readonly UserManager<AppUser> _userManager;
+
         public  IProductRepository productRepository { get; set; }
+
+        public IAuth Auth { get; }
+
         private Hashtable _repository;
 
-        public UnitOfWork(AppDbContext dbcontext , IMapper mapper , IImageMangementService imageMangement )
+        public UnitOfWork(AppDbContext dbcontext , 
+                           IMapper mapper ,
+                           IImageMangementService imageMangement ,
+                           UserManager<AppUser> userManager )
         {
             _dbcontext = dbcontext;
             _mapper = mapper;
             _imageMangement = imageMangement;
-            productRepository = new ProductRepository(_dbcontext , _mapper , _imageMangement);
+            _userManager = userManager;
             _repository = new Hashtable();
+            productRepository = new ProductRepository(_dbcontext, _mapper, _imageMangement);
+            Auth = new AuthRepository(_userManager);
         } 
 
         public async Task<int> CompleteAsync()

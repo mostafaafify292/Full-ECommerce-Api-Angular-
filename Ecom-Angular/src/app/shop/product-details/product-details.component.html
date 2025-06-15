@@ -53,12 +53,12 @@
 
         <!-- Quantity Controls -->
         <p class="text-danger">
-          quantity: 1
-          <button class="btn btn-danger text-white">
+          quantity: {{quantity}}
+          <button (click)=" decrementBasket() " class="btn btn-danger text-white">
             <i class="fa fa-minus"></i>
           </button>
           &nbsp;
-          <button class="btn btn-dark text-white">
+          <button (click)="incrementBasket()" class="btn btn-dark text-white">
             <i class="fa fa-plus"></i>
           </button>
         </p>
@@ -68,10 +68,10 @@
           <a href="#" class="btn custom-btn shadow"
             ><i class="fa fa-heart"></i> Wishlist</a
           >
-          <button class="btn custom-btn shadow">
+          <button (click)="addToBasket()" class="btn custom-btn shadow">
             <i class="fa fa-shopping-cart"></i> Add to cart
           </button>
-          <button class="btn custom-btn shadow">
+          <button routerLink="/shop" class="btn custom-btn shadow">
             <i class="fa fa-shopping-bag"></i> Shopping
           </button>
           <div class="block quantity">

@@ -85,5 +85,32 @@ $star-color: #ffc107;
 
         }
     }
+    .card-text {
+  font-size: 1rem;
+  color: $secondary-color;
+
+  .desc-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 4.5em;
+    line-height: 1.5em;
+  }
+
+  .read-more-link {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: $primary-color;
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+      color: darken($primary-color, 10%);
+    }
+  }
+}
 
 }

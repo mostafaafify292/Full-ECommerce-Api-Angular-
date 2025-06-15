@@ -1,6 +1,9 @@
-<div *ngIf="basket?.id === null; else basketContent">
-  <div class="text-center text-danger">
-    <h4>Your basket is empty</h4>
+<div *ngIf="!basket || basket.basketItems?.length === 0; else basketContent">
+  <div class="empty-basket text-center">
+    <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="Empty Basket" />
+    <h3>Your Basket is Empty</h3>
+    <p>Looks like you haven’t added anything to your cart yet.</p>
+    <a routerLink="/shop" class="btn btn-primary">Start Shopping</a>
   </div>
 </div>
 
@@ -36,9 +39,19 @@
                 alt=""
               />
             </td>
-            <td class="description">
-              {{ item?.description }}
-            </td>
+           
+             <td class="description">
+    <div class="desc-text">
+      {{ item?.description }}
+    </div>
+    <a
+      *ngIf="item?.description?.length > 100"
+      [routerLink]="['/shop/product-details', item?.id]"
+      class="read-more-link"
+    >
+      Read more
+    </a>
+  </td>
             <td>{{ item?.price | currency }}</td>
             <td>
               <div class="d-flex justify-content-center align-items-center">
@@ -69,7 +82,7 @@
     </div>
 
     <div class="order-summary-container">
-      <!-- <app-order-total></app-order-total> -->
+      <app-order-total></app-order-total> 
       <a routerLink="/checkout" class="btn btn-dark w-100 mt-3">
         Proceed to checkout
       </a>
