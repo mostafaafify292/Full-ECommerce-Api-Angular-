@@ -1,11 +1,13 @@
 
 using Ecom.API.Extentions;
+using Ecom.Core.Entites.Identity;
 using Ecom.Core.Interfaces;
 using Ecom.Core.Services;
 using Ecom.infrastructure.Data;
 using Ecom.infrastructure.Data.Identity;
 using Ecom.infrastructure.Repository;
 using Ecom.infrastructure.Repository.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +29,7 @@ namespace Ecom.API
             // Add services to the container.
 
             builder.Services.AddControllers();
-            builder.Services.AddApplicationServices();
+            builder.Services.AddApplicationServices(builder.Configuration);
             builder.Services.AddSwaggerServices();
 
             builder.Services.AddCors(options =>
@@ -51,6 +53,11 @@ namespace Ecom.API
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
             });
+            //Identity
+            builder.Services.AddIdentity<AppUser, IdentityRole>(option =>
+            {
+
+            }).AddEntityFrameworkStores<AppIdentityDbContext>();
             //Connection for Redis
             builder.Services.AddSingleton<IConnectionMultiplexer>((serviceProvider) =>
             {

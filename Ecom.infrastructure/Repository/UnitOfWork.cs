@@ -3,6 +3,7 @@ using Ecom.Core.Entites;
 using Ecom.Core.Entites.Identity;
 using Ecom.Core.Interfaces;
 using Ecom.Core.Services;
+using Ecom.Core.ServicesContract;
 using Ecom.infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -20,25 +21,35 @@ namespace Ecom.infrastructure.Repository
         private readonly IMapper _mapper;
         private readonly IImageMangementService _imageMangement;
         private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly IEmailService _emailService;
 
         public  IProductRepository productRepository { get; set; }
 
         public IAuth Auth { get; }
+        public IGenerateToken _Token { get; }
 
         private Hashtable _repository;
 
         public UnitOfWork(AppDbContext dbcontext , 
                            IMapper mapper ,
                            IImageMangementService imageMangement ,
-                           UserManager<AppUser> userManager )
+                           UserManager<AppUser> userManager,
+                           SignInManager<AppUser> signInManager,
+                           IEmailService emailService,
+                           IGenerateToken token
+                           )
         {
             _dbcontext = dbcontext;
             _mapper = mapper;
             _imageMangement = imageMangement;
             _userManager = userManager;
+            _signInManager = signInManager;
+            _emailService = emailService;
+            _Token = token;
             _repository = new Hashtable();
             productRepository = new ProductRepository(_dbcontext, _mapper, _imageMangement);
-            Auth = new AuthRepository(_userManager);
+            Auth = new AuthRepository(_userManager, _signInManager, _emailService , _Token);
         } 
 
         public async Task<int> CompleteAsync()

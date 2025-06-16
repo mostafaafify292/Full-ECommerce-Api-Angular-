@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 
 namespace Ecom.Core.DTO.IdentityDTOS
 {
-    public class RegisterDTO
+    public record LoginDTO
     {
-        [Required]
-        public string UserName { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
+    }
+    public record RegisterDTO : LoginDTO
+    {
+        [Required]
+        public string UserName { get; set; }
+
     }
 }
