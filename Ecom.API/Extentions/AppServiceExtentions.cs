@@ -53,8 +53,24 @@ namespace Ecom.API.Extentions
             });
 
             // JWT Validation
-            services.AddAuthentication().AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            services.AddAuthentication(op =>
             {
+                op.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                op.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddCookie(op =>
+            {
+                op.Cookie.Name = "token";
+                op.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;   //When i Add Authorize [attribute]
+                    return Task.CompletedTask;                                    //try to login or register if he is not auth return 401
+                };
+            }).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false; //Angular is Https not http 
+                options.SaveToken = true;
+
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
@@ -66,11 +82,18 @@ namespace Ecom.API.Extentions
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:AuthKey"] ?? string.Empty))
                 };
+                options.Events.OnMessageReceived = Context =>
+                {
+                    Context.Token = Context.Request.Cookies["token"];
+                    return Task.CompletedTask;
+                };
 
             });
 
             return services;
         }
+
+
 
         
 

@@ -21,4 +21,13 @@ namespace Ecom.Core.DTO.IdentityDTOS
         public string UserName { get; set; }
 
     }
+    public record resetPasswordDTO : LoginDTO
+    {
+        public string Token { get; set; }
+    }
+    public record ActiveAccountDTO
+    {
+        public string Email { get; set; }
+        public string Token { get; set; }
+    }
 }
