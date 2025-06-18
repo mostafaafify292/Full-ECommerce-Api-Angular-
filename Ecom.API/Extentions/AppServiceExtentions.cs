@@ -26,6 +26,7 @@ namespace Ecom.API.Extentions
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IGenerateToken, GenerateToken>();
+            services.AddScoped<IAuth, AuthRepository>();
 
 
             services.AddSingleton<IFileProvider>(

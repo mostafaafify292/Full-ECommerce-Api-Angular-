@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ecom.API.Error;
 using Ecom.Core.DTO.IdentityDTOS;
 using Ecom.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +23,12 @@ namespace Ecom.API.Controllers
         public async Task<IActionResult> register(RegisterDTO registerDTO)
         {
             var result = await _unit.Auth.RegisterAsync(registerDTO);
+            if (result != "done")
+            {
+                return BadRequest(new ApiResponse(400, result));
+            }
+            return Ok(new ApiResponse(200, result));
+
 
         }
     }

@@ -57,7 +57,7 @@ namespace Ecom.API
             builder.Services.AddIdentity<AppUser, IdentityRole>(option =>
             {
 
-            }).AddEntityFrameworkStores<AppIdentityDbContext>();
+            }).AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
             //Connection for Redis
             builder.Services.AddSingleton<IConnectionMultiplexer>((serviceProvider) =>
             {

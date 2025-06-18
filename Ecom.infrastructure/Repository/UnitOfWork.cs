@@ -19,37 +19,27 @@ namespace Ecom.infrastructure.Repository
     {
         private readonly AppDbContext _dbcontext;
         private readonly IMapper _mapper;
-        private readonly IImageMangementService _imageMangement;
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly IEmailService _emailService;
-
-        public  IProductRepository productRepository { get; set; }
-
-        public IAuth Auth { get; }
-        public IGenerateToken _Token { get; }
+        private readonly IProductRepository _productRepository;
+        private readonly IAuth _auth;
+        //public  IProductRepository productRepository { get; set; }
+        public IAuth Auth => _auth;        
+        public IProductRepository productRepository  => _productRepository ;
 
         private Hashtable _repository;
 
-        public UnitOfWork(AppDbContext dbcontext , 
-                           IMapper mapper ,
-                           IImageMangementService imageMangement ,
-                           UserManager<AppUser> userManager,
-                           SignInManager<AppUser> signInManager,
-                           IEmailService emailService,
-                           IGenerateToken token
+        public UnitOfWork(AppDbContext dbcontext,
+                           IMapper mapper,
+                           IProductRepository productRepository,
+                           IAuth auth
                            )
         {
             _dbcontext = dbcontext;
             _mapper = mapper;
-            _imageMangement = imageMangement;
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _emailService = emailService;
-            _Token = token;
+            _productRepository = productRepository;
+            _auth = auth;
             _repository = new Hashtable();
-            productRepository = new ProductRepository(_dbcontext, _mapper, _imageMangement);
-            Auth = new AuthRepository(_userManager, _signInManager, _emailService , _Token);
+            //productRepository = new ProductRepository(_dbcontext, _mapper, _imageMangement);
+            //Auth = new AuthRepository(_userManager, _signInManager, _emailService , _Token);
         } 
 
         public async Task<int> CompleteAsync()
