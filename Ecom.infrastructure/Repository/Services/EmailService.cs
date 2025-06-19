@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ecom.Core.DTO.IdentityDTOS;
 using Ecom.Core.ServicesContract;
+using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 
@@ -34,13 +35,14 @@ namespace Ecom.infrastructure.Repository.Services
                 try
                 {
                     await smtp.ConnectAsync(configuration["EmailSetting:Smtp"],
-                                            int.Parse(configuration["EmailSetting:Port"]), true);
+                                            int.Parse(configuration["EmailSetting:Port"]), SecureSocketOptions.SslOnConnect);
                     await smtp.AuthenticateAsync(configuration["EmailSetting:Username"], configuration["EmailSetting:Password"]);
                     await smtp.SendAsync(message);
                 }
                 catch (Exception ex)
                 {
 
+                    Console.WriteLine("⛔ SMTP ERROR: " + ex.Message);
                     throw;
                 }
                 finally

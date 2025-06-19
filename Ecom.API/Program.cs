@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using System.Threading.Tasks;
 using Talabat.APIS.Errors;
@@ -56,6 +57,9 @@ namespace Ecom.API
             //Identity
             builder.Services.AddIdentity<AppUser, IdentityRole>(option =>
             {
+                        option.User.AllowedUserNameCharacters =
+                                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "; 
+                         option.User.RequireUniqueEmail = true;
 
             }).AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
             //Connection for Redis

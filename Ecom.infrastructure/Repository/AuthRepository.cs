@@ -39,11 +39,13 @@ namespace Ecom.infrastructure.Repository
             
             if (await _userManager.FindByEmailAsync(registerDTO.Email) is not null)
                 return "this Email is already registerd";
-            
+           
+
             var user = new AppUser()
             {
                 Email = registerDTO.Email,
-                UserName = registerDTO.UserName,
+                DisplayName = registerDTO.Email.Split('@')[0],
+                UserName = registerDTO.UserName
 
             };
             var result = await _userManager.CreateAsync(user,registerDTO.Password);
@@ -68,7 +70,7 @@ namespace Ecom.infrastructure.Repository
 
 
         //Login
-        public async Task<string> Login(LoginDTO loginDTO) 
+        public async Task<string> LoginAsync(LoginDTO loginDTO) 
         {
             if (loginDTO == null)
                 return null;

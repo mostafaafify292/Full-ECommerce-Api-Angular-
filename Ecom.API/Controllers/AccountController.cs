@@ -31,5 +31,28 @@ namespace Ecom.API.Controllers
 
 
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> login(LoginDTO loginDTO)
+        {
+
+            var result = await _unit.Auth.LoginAsync(loginDTO);
+
+            if (result.StartsWith("Please"))
+            {
+                return BadRequest(new ApiResponse(400, result));
+            }
+
+            Response.Cookies.Append("token", result, new CookieOptions()
+            {
+                Secure = true,
+                HttpOnly = true,
+                Domain = "localhost",
+                Expires = DateTime.Now.AddDays(1),
+                IsEssential =true,
+                SameSite = SameSiteMode.Strict
+            });
+            return Ok(new ApiResponse(200));
+        }
     }
 }

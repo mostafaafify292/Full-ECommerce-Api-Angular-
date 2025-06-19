@@ -11,7 +11,7 @@ namespace Ecom.Core.Interfaces
     {
         Task<string> RegisterAsync(RegisterDTO registerDTO);
         Task SendEmail(string email, string Token, string component, string subject, string message);
-        Task<string> Login(LoginDTO loginDTO);
+        Task<string> LoginAsync(LoginDTO loginDTO);
         Task<bool> SendEmailForForgetPassword(string email);
         Task<string> ResetPassword(resetPasswordDTO resetPassword);
         Task<bool> ActiveAccount(ActiveAccountDTO activeAccount);
