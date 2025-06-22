@@ -5,12 +5,14 @@ import { IdentityRoutingModule } from './identity-routing.module';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActiveComponent } from './active/active.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
     RegisterComponent,
-    ActiveComponent
+    ActiveComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,

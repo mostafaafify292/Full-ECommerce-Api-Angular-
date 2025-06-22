@@ -1,4 +1,4 @@
-export interface IActiveAccount{
+export class ActiveAccount{
     email:string;
     token:string;
 }

@@ -55,6 +55,7 @@ export class BasketService {
   }
 
   addItemToBasket(product: IProduct, quantity: number = 1) {
+    debugger;
     const itemToAdd = this.MapProductToBasketItem(product, quantity);
     let basket = this.GetCurrentValue();
     if (!basket || basket?.id == 'null' ) {

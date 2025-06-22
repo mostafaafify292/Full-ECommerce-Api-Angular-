@@ -1,8 +1,8 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { IActiveAccount } from '../../shared/Models/ActiveAccount';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IdentityService } from '../identity.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActiveAccount } from '../../shared/Models/ActiveAccount';
 
 @Component({
   selector: 'app-active',
@@ -11,11 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ActiveComponent implements AfterViewInit {
 
-  activeParam:IActiveAccount={
-    email:'',
-    token:''
-  }
-  constructor(private route:ActivatedRoute ,  private _service:IdentityService , private _toast:ToastrService){}
+  activeParam = new ActiveAccount()
+  constructor(private route:ActivatedRoute ,  private _service:IdentityService , private _toast:ToastrService , private router: Router) {}
   ngAfterViewInit(): void {
     this.route.queryParams.subscribe(param=>{
       this.activeParam.email=param['email'];
@@ -24,7 +21,8 @@ export class ActiveComponent implements AfterViewInit {
   this._service.active(this.activeParam).subscribe({
     next:(value)=>{
       console.log(value);
-      this._toast.success("Your Account is active now" ,"SUCCESS")
+      this._toast.success("Your Account is active now" ,"SUCCESS");
+      this.router.navigate(['/Login']);
       
     },error:(err)=>{
       console.log(err);
