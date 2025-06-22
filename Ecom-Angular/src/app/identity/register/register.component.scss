@@ -1,0 +1,77 @@
+/* شكل الفورم العام */
+section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* الفورم نفسه */
+.form-container {
+  width: 100%;
+  max-width: 450px;
+  padding: 30px 25px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* عنوان الفورم */
+.form-container h2 {
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  color: #333;
+  font-weight: 600;
+}
+
+/* كل عنصر داخل الفورم */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* العنصر */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* الإدخال */
+input.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* عند التركيز */
+input.form-control:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+/* VALIDATION STYLES */
+input.is-valid {
+  border-color: #28a745;
+  background-color: #f0fff5;
+}
+
+input.is-invalid {
+  border-color: #dc3545;
+  background-color: #fff0f0;
+}
+
+/* Messages لو هتضيفها بعدين */
+.invalid-feedback,
+.valid-feedback {
+  font-size: 0.85rem;
+  margin-top: 4px;
+  color: #dc3545;
+}

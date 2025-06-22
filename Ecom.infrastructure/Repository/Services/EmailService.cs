@@ -23,7 +23,7 @@ namespace Ecom.infrastructure.Repository.Services
         {
 
             MimeMessage message = new MimeMessage();
-            message.From.Add(new MailboxAddress("My Ecomm",configuration["EmailSetting:From"])); 
+            message.From.Add(new MailboxAddress("Afify-Tech",configuration["EmailSetting:From"])); 
             message.Subject = emailDTO.Subject;
             message.To.Add(new MailboxAddress(emailDTO.To, emailDTO.To));
             message.Body = new TextPart(MimeKit.Text.TextFormat.Html)

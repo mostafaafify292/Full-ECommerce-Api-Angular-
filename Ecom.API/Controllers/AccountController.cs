@@ -54,5 +54,19 @@ namespace Ecom.API.Controllers
             });
             return Ok(new ApiResponse(200));
         }
+
+        [HttpPost("active-account")]
+        public async Task<IActionResult> active(ActiveAccountDTO accountDTO)
+        {
+            var result = await _unit.Auth.ActiveAccount(accountDTO);
+            return result ? Ok(new ApiResponse(200)) : BadRequest(new ApiResponse(400));
+        }
+
+        [HttpGet("send-email-forget-password")]
+        public async Task<IActionResult> forget(string name)
+        {
+            var result = await _unit.Auth.SendEmailForForgetPassword(name);
+            return result ? Ok(new ApiResponse(200)) : BadRequest(new ApiResponse(400));
+        }
     }
 }
