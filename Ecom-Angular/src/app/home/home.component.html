@@ -1,149 +1,31 @@
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <h1>Upgrade Your Tech Life</h1>
+    <p>Find the best laptops, phones, and gadgets at unbeatable prices.</p>
+    <a routerLink="/shop" class="btn-shop">Shop Now</a>
+  </div>
+</section>
 
-<div id="carouselExampleCaptions" class="carousel slide">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+<!-- Features Section -->
+<section class="features-section container">
+  <div class="feature" *ngFor="let feature of features">
+    <img [src]="feature.icon" alt="icon" />
+    <h5>{{ feature.title }}</h5>
+    <p>{{ feature.text }}</p>
+  </div>
+</section>
+
+<!-- Product Showcase (Static cards) -->
+<section class="showcase-section container">
+  <h2 class="section-title">Our Product Categories</h2>
+  <div class="product-grid">
+    <div class="product-card" *ngFor="let item of products" (click)="navigateToCategory(item.id)"
+      style="cursor: pointer">
+      <img [src]="item.img" alt="product" />
+      <h4>{{ item.name }}</h4>
+      <p>{{ item.desc }}</p>
     </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/asp-net-core-dotnet-8.png" class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Some representative placeholder content for the first slide.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="https://i.ytimg.com/vi/EHnxZUuHF_M/maxresdefault.jpg" class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Second slide label</h5>
-          <p>Some representative placeholder content for the second slide.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/asp-net-core-dotnet-8.png" class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Third slide label</h5>
-          <p>Some representative placeholder content for the third slide.</p>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div> 
-  <section class="py-16 bg-[var(--bg-color)] text-[var(--text-color)]">
-    <div class="container mx-auto px-6">
-      <div class="carousel">
-        <!-- Radio Inputs for Carousel Navigation -->
-        <input type="radio" name="slides" checked="checked" id="slide-1">
-        <input type="radio" name="slides" id="slide-2">
-        <input type="radio" name="slides" id="slide-3">
-        <input type="radio" name="slides" id="slide-4">
-        <input type="radio" name="slides" id="slide-5">
-  
-        <!-- Carousel Slides -->
-        <ul class="carousel__slides">
-          <li class="carousel__slide">
-            <figure>
-              <div>
-                <img loading="lazy" src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/asp-net-core-dotnet-8.png" alt="Laptop 1">
-              </div>
-              <figcaption>
-                <h3 class="text-xl font-semibold mt-4">High-Performance Laptop 1</h3>
-                <p class="mt-2 text-gray-600">Designed for developers, this laptop ensures smooth performance for all your coding and software needs. Equipped with the latest ASP.NET Core .NET 8, it's perfect for professional programming.</p>
-                <span class="block text-sm text-gray-500 mt-3">Photo: Manufacturer</span>
-              </figcaption>
-            </figure>
-          </li>
-  
-          <li class="carousel__slide">
-            <figure>
-              <div>
-                <img loading="lazy" src="https://i.ytimg.com/vi/EHnxZUuHF_M/maxresdefault.jpg" alt="Laptop 2">
-              </div>
-              <figcaption>
-                <h3 class="text-xl font-semibold mt-4">Sleek and Stylish Laptop 2</h3>
-                <p class="mt-2 text-gray-600">With a slim design and advanced features, Laptop 2 is ideal for professionals on the go. It offers enhanced portability without compromising power.</p>
-                <span class="block text-sm text-gray-500 mt-3">Photo: Manufacturer</span>
-              </figcaption>
-            </figure>
-          </li>
-  
-          <li class="carousel__slide">
-            <figure>
-              <div>
-                <img loading="lazy" src="https://img.freepik.com/premium-psd/mock-up-laptop-gymnastic-elements-virtual-goggles-3d-render_124437-2449.jpg?size=626&ext=jpg" alt="Laptop 3">
-              </div>
-              <figcaption>
-                <h3 class="text-xl font-semibold mt-4">Powerful Laptop 3 for Gaming</h3>
-                <p class="mt-2 text-gray-600">Whether it's gaming or intense work, Laptop 3 handles everything with ease. Its high-end GPU and powerful processors deliver a seamless experience.</p>
-                <span class="block text-sm text-gray-500 mt-3">Photo: Manufacturer</span>
-              </figcaption>
-            </figure>
-          </li>
-  
-          <li class="carousel__slide">
-            <figure>
-              <div>
-                <img loading="lazy" src="https://img.freepik.com/free-photo/rendering-smart-home-device_23-2151039322.jpg?ga=GA1.1.2035939287.1721607506&semt=ais_user" alt="Laptop 4">
-              </div>
-              <figcaption>
-                <h3 class="text-xl font-semibold mt-4">Lightweight Laptop 4</h3>
-                <p class="mt-2 text-gray-600">Perfect for students and professionals, Laptop 4 offers a lightweight design with exceptional battery life to keep you productive throughout the day.</p>
-                <span class="block text-sm text-gray-500 mt-3">Photo: Manufacturer</span>
-              </figcaption>
-            </figure>
-          </li>
-  
-          <li class="carousel__slide">
-            <figure>
-              <div>
-                <img loading="lazy" src="https://img.freepik.com/premium-photo/headphones-connected-smartphone-pink-blue-background_175682-4238.jpg?ga=GA1.1.2035939287.1721607506&semt=ais_user" alt="Laptop 5">
-              </div>
-              <figcaption>
-                <h3 class="text-xl font-semibold mt-4">Stunning Display Laptop 5</h3>
-                <p class="mt-2 text-gray-600">For content creators, Laptop 5 provides an ultra-high resolution display, perfect for photo editing, video production, and creative work.</p>
-                <span class="block text-sm text-gray-500 mt-3">Photo: Manufacturer</span>
-              </figcaption>
-            </figure>
-          </li>
-        </ul>
-  
-        <!-- Carousel Thumbnails for Navigation -->
-        <ul class="carousel__thumbnails mt-8 flex justify-center space-x-4">
-          <li>
-            <label for="slide-1">
-              <img loading="lazy" src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/asp-net-core-dotnet-8.png" alt="Thumbnail 1" class="w-16 h-16 rounded-lg cursor-pointer">
-            </label>
-          </li>
-          <li>
-            <label for="slide-2">
-              <img loading="lazy" src="https://i.ytimg.com/vi/EHnxZUuHF_M/maxresdefault.jpg" alt="Thumbnail 2" class="w-16 h-16 rounded-lg cursor-pointer">
-            </label>
-          </li>
-          <li>
-            <label for="slide-3">
-              <img loading="lazy" src="https://img.freepik.com/premium-psd/mock-up-laptop-gymnastic-elements-virtual-goggles-3d-render_124437-2449.jpg?size=626&ext=jpg" alt="Thumbnail 3" class="w-16 h-16 rounded-lg cursor-pointer">
-            </label>
-          </li>
-          <li>
-            <label for="slide-4">
-              <img loading="lazy" src="https://img.freepik.com/free-photo/rendering-smart-home-device_23-2151039322.jpg?ga=GA1.1.2035939287.1721607506&semt=ais_user" alt="Thumbnail 4" class="w-16 h-16 rounded-lg cursor-pointer">
-            </label>
-          </li>
-          <li>
-            <label for="slide-5">
-              <img loading="lazy" src="https://img.freepik.com/premium-photo/headphones-connected-smartphone-pink-blue-background_175682-4238.jpg?ga=GA1.1.2035939287.1721607506&semt=ais_user" alt="Thumbnail 5" class="w-16 h-16 rounded-lg cursor-pointer">
-            </label>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-  
+  </div>
+</section>

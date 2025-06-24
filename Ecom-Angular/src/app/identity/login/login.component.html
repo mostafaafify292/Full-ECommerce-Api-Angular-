@@ -1,44 +1,80 @@
 <section class="pt-5">
     <div class="form-container">
         <h2 class="text-center">Login</h2>
-        <form  [formGroup]="formGroup" (ngSubmit)="Submit()">
-               
-    
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" class="form-control" formControlName="email"
-        [class.is-valid]="_email?.valid && _email?.touched"
-        [class.is-invalid]="_email?.invalid && _email?.touched">
-      <span class="text-danger" *ngIf="_email?.hasError('required') && _email?.touched">
-        Email is Required
-      </span>
-      <span class="text-danger" *ngIf="_email?.hasError('email') && _email?.touched">
-        Email Format Invalid (e.g., test&#64;ts.com)
-      </span>
-    </div>
-    
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" class="form-control" formControlName="password"
-        [class.is-valid]="_password?.valid && _password?.touched"
-        [class.is-invalid]="_password?.invalid && _password?.touched">
-      <span class="text-danger" *ngIf="_password?.hasError('required') && _password?.touched">
-        Password is Required
-      </span>
-      <span class="text-danger" *ngIf="_password?.hasError('pattern') && _password?.touched">
-        Password must contain at least one number, one special character (#$&#64;!.), and be at least 8 characters long
-      </span>
-    </div>
-    
-      <div class="form-group">
-         <button type="submit" class="btn btn-info w-100 mt-3" [disabled]="formGroup.invalid">Login <i class="fa fa-sign-in"></i></button>
-      </div>
-     
-    
-    
+        <form [formGroup]="formGroup" (ngSubmit)="Submit()">
+
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" formControlName="email"
+                    [class.is-valid]="_email?.valid && _email?.touched"
+                    [class.is-invalid]="_email?.invalid && _email?.touched">
+                <span class="text-danger" *ngIf="_email?.hasError('required') && _email?.touched">
+                    Email is Required
+                </span>
+                <span class="text-danger" *ngIf="_email?.hasError('email') && _email?.touched">
+                    Email Format Invalid (e.g., test&#64;ts.com)
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" formControlName="password"
+                    [class.is-valid]="_password?.valid && _password?.touched"
+                    [class.is-invalid]="_password?.invalid && _password?.touched">
+                <span class="text-danger" *ngIf="_password?.hasError('required') && _password?.touched">
+                    Password is Required
+                </span>
+                <span class="text-danger" *ngIf="_password?.hasError('pattern') && _password?.touched">
+                    Password must contain at least one number, one special character (#$&#64;!.), and be at least 8
+                    characters long
+                </span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-info w-100 mt-3"  [disabled]="formGroup.invalid">Login <i
+                        class="fa fa-user"></i></button>
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-between align-items-center">
+                    <button class="btn btn-danger fa fa-user-plus"  routerLink="/account/Register">Create Account</button>
+                    <button class="btn btn-primary" (click)="openModal(template)">Forget Password</button>
+                </div>
+
+            </div>
+
+
         </form>
-    
+
     </div>
-    
-    </section>
-    
+
+</section>
+
+
+<ng-template #template>
+    <div class="modal-header">
+        <h5 class="modal-title">Forget Password</h5>
+        <button type="button" class="close" (click)="modalRef?.hide()">
+            <span>&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <form [formGroup]="forgetForm" (ngSubmit)="onSendResetLink()">
+            <div class="form-group">
+                <label for="email">Enter your email</label>
+                <input type="email" formControlName="email" class="form-control" placeholder="e.g., test@example.com">
+                <small class="text-danger" *ngIf="forgetForm.get('email')?.invalid && forgetForm.get('email')?.touched">
+                    Valid email is required.
+                </small>
+            </div>
+            <div class="text-end mt-3">
+                <button type="submit" class="btn btn-info" [disabled]="forgetForm.invalid">Send Reset Link</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="modalRef?.hide()">Close</button>
+    </div>
+</ng-template>

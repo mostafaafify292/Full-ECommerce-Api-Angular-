@@ -1,35 +1,29 @@
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a routerLink="/shop" class="navbar-brand">
+    <a routerLink="/shop" class="navbar-brand d-flex align-items-center">
       <img src="./favicon.ico" class="logo" alt="Logo" />
-      <i class="text-dark">Afify-Tech</i>
+      <i>Afify-Tech</i>
     </a>
 
-    <div class="collapse navbar-collapse">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a
-            routerLink="/"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="nav-link"
-            >Home</a
-          >
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link">Home</a>
         </li>
         <li class="nav-item">
-          <a
-            routerLink="/shop"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="nav-link"
-            >Shopping</a
-          >
+          <a routerLink="/shop" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link">Shopping</a>
         </li>
         <li class="nav-item"><a href="#" class="nav-link">About Us</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Best Seller</a></li>
       </ul>
 
-      <form class="d-flex mx-auto">
+      <form class="d-flex mx-auto w-50">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search..." />
           <button class="btn btn-outline-secondary" type="button">
@@ -39,42 +33,34 @@
       </form>
 
       <ul class="navbar-nav ms-auto align-items-center">
-        <li class="nav-item">
-          <a routerLink="/basket" class="nav-link">
+        <li class="nav-item me-3 nav-icon-badge">
+          <a routerLink="/basket" class="nav-link position-relative">
             <ng-container *ngIf="count | async as basket">
-              <i
-                matBadge="{{ basket?.basketItems?.length || 0 }}"
-                matBadgeColor="warn"
-                class="material-icons"
-                >shopping_cart</i
-              >
+              <i class="material-icons">shopping_cart</i>
+              <span class="badge">{{ basket?.basketItems?.length || 0 }}</span>
             </ng-container>
           </a>
         </li>
+
         <li class="nav-item dropdown">
-          <a
-            href="#"
-            class="nav-link dropdown-toggle"
-            role="button"
-            data-bs-toggle="dropdown"
-          >
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
             <i class="material-icons">account_circle</i>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
-              <a class="dropdown-item" routerLink="/account/Register"
-                >Register <i class="fa fa-user-plus"></i
-              ></a>
+              <a class="dropdown-item" routerLink="/account/Register">
+                Register <i class="fa fa-user-plus ms-2"></i>
+              </a>
             </li>
             <li>
-              <a class="dropdown-item" routerLink="/account/Login"
-                >Login <i class="fa fa-sign-in"></i
-              ></a>
+              <a class="dropdown-item" routerLink="/account/Login">
+                Login <i class="fa fa-sign-in ms-2"></i>
+              </a>
             </li>
             <li>
-              <a class="dropdown-item" matBadge="1" routerLink="/orders"
-                >My Order <i class="fa fa-list"></i
-              ></a>
+              <a class="dropdown-item" routerLink="/orders">
+                My Orders <i class="fa fa-list ms-2"></i>
+              </a>
             </li>
           </ul>
         </li>

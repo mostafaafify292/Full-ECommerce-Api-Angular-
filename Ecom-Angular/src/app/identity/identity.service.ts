@@ -21,4 +21,10 @@ export class IdentityService {
     return this._httpClient.post(this.baseURL+ "Account/login" , form , {
       withCredentials: true})
   }
+  forgetPassword(email:string){
+    return this._httpClient.get(this.baseURL+"Account/send-email-forget-password?email="+email)
+  }
+  resetPassword(form:any){
+    return this._httpClient.post(this.baseURL+"Account/reset-password" , form)
+  }
 }

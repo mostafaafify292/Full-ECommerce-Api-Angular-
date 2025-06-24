@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IdentityService } from '../identity.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,19 @@ export class LoginComponent implements OnInit {
 
 formGroup:FormGroup
 
-constructor(private fb:FormBuilder , private _service:IdentityService ,private router: Router){}
+modalRef?: BsModalRef;
+forgetForm: FormGroup;
+
+constructor(private fb: FormBuilder,
+   private _service: IdentityService,
+   private router: Router,
+   private modalService: BsModalService,
+  private toastr: ToastrService) {
+
+    this.forgetForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]]
+  });
+}
 
   ngOnInit(): void {
    this.formValidation()
@@ -31,6 +45,7 @@ get _email() {
 get _password() {
   return this.formGroup.get('password');
 }
+
 Submit(){
   
   console.log(this.formGroup.value)
@@ -43,9 +58,35 @@ Submit(){
       error:(err)=>{
         console.log(err);
       }
-    })
+    });
   }
 }
+
+openModal(template: TemplateRef<any>) {
+  this.modalRef = this.modalService.show(template);
+}
+
+onSendResetLink() {
+  const email = this.forgetForm.value.email;
+
+  if (this.forgetForm.valid) {
+    this._service.forgetPassword(email).subscribe({
+      next:(value)=>{
+        console.log(value);
+        this.toastr.success("Email sent successfully", 'Success');
+      },
+      error:(err)=>{
+        console.log(err);
+        this.toastr.error("An Error occurred while sending email", 'Error');
+      }
+    });
+  }
+  console.log("Reset link sent to:", email); // اربطها بالباك اند هنا
+  this.modalRef?.hide();
+}
+
+
+
 
 }
 

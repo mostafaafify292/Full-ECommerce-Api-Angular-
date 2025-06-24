@@ -63,10 +63,27 @@ namespace Ecom.API.Controllers
         }
 
         [HttpGet("send-email-forget-password")]
-        public async Task<IActionResult> forget(string name)
+        public async Task<IActionResult> forget(string email)
         {
-            var result = await _unit.Auth.SendEmailForForgetPassword(name);
+            var result = await _unit.Auth.SendEmailForForgetPassword(email);
             return result ? Ok(new ApiResponse(200)) : BadRequest(new ApiResponse(400));
         }
-    }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> reset(resetPasswordDTO passwordDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _unit.Auth.ResetPassword(passwordDTO);
+                if (result != "Password change success")
+                {
+                    return BadRequest(new ApiResponse(400, result));
+                }
+                return Ok(new ApiResponse(200, result));
+            }
+      
+            return BadRequest(new ApiResponse(400, "Model is not Valid"));
+            
+        }
+    } 
 }

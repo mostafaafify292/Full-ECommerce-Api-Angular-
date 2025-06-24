@@ -5,6 +5,7 @@ import { IProduct } from '../shared/Models/Product';
 import { ICategory } from '../shared/Models/Category';
 import { ProductParams } from '../shared/Models/ProductParams';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-shop',
@@ -15,10 +16,11 @@ export class ShopComponent implements OnInit {
   constructor(
     private shopService: ShopService,
     private toast: ToastrService,
+    private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    this.getAllProduct();
     this.getCategory();
+ 
   }
 
   //Get Product
@@ -29,6 +31,7 @@ export class ShopComponent implements OnInit {
   ProductParams = new ProductParams();
 
   getAllProduct() {
+    debugger;
     this.shopService.getProduct(this.ProductParams).subscribe({
       next: (value: IPagination) => {
         this.product = value.data;
@@ -51,13 +54,32 @@ export class ShopComponent implements OnInit {
   //Get Category
 
   getCategory() {
+    debugger;
     this.shopService.getCategory().subscribe((value) => {
-      this.Category = value;
-      console.log(this.Category);
+
+      this.shopService.getCategory().subscribe((value) => {
+        this.Category = value;
+    
+        // بعد ما الكاتيجوري تجهز، اقرأ الكويري
+        const categoryFromQuery = this.route.snapshot.queryParamMap.get('category');
+        if (categoryFromQuery) {
+          const matchedCategory = this.Category.find(
+            (c) => c.id === +categoryFromQuery
+          );
+          if (matchedCategory) {
+            this.ProductParams.CategoryId = matchedCategory.id;
+          }
+        }
+    
+        // بعد ما تحط الـ CategoryId لو فيه، هات المنتجات
+        this.getAllProduct();
+      });
+
     });
   }
 
   SelectedId(categoryId: number) {
+    debugger;
     this.ProductParams.CategoryId = categoryId;
     this.getAllProduct();
   }

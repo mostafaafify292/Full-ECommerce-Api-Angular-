@@ -22,7 +22,7 @@ export class ActiveComponent implements AfterViewInit {
     next:(value)=>{
       console.log(value);
       this._toast.success("Your Account is active now" ,"SUCCESS");
-      this.router.navigate(['/Login']);
+      this.router.navigate(['/account/Login']);
       
     },error:(err)=>{
       console.log(err);
