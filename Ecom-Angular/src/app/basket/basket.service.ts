@@ -96,7 +96,7 @@ export class BasketService {
     quantity: number,
   ): IBasketItem {
     return {
-      id: product.id?.toString(),
+      id: product.id,
       category: product.categoryName,
       name: product.name,
       imageURL: product.photos[0]?.imageName,

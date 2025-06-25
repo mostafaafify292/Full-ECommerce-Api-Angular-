@@ -27,6 +27,7 @@ namespace Ecom.API.Extentions
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IGenerateToken, GenerateToken>();
             services.AddScoped<IAuth, AuthRepository>();
+            services.AddScoped<IOrderService, OrderService>();
 
 
             services.AddSingleton<IFileProvider>(
