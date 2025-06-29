@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Ecom.API.Controllers
 {
@@ -22,14 +23,14 @@ namespace Ecom.API.Controllers
             _orderService = orderService;
         }
         [HttpPost("create-order")]
-        
+
         public async Task<IActionResult> CreateOrder(orderDTO orderDTO)
         {
             if (orderDTO is null)
             {
                 return BadRequest(new ApiResponse(400, "Invalid order data"));
             }
-            var buyerEmail = User?.Claims?.FirstOrDefault(c => c.Type == "email")?.Value;
+            var buyerEmail = User?.FindFirst(ClaimTypes.Email)?.Value;
             if (string.IsNullOrEmpty(buyerEmail))
             {
                 return Unauthorized(new ApiResponse(401, "User not authenticated"));
@@ -40,6 +41,46 @@ namespace Ecom.API.Controllers
                 return BadRequest(new ApiResponse(400, "Failed to create order"));
             }
             return Ok(order);
+        }
+        [HttpGet("get-orders-for-user")]
+        public async Task<IActionResult> getOrders()
+        {
+            var buyerEmail = User?.FindFirst(ClaimTypes.Email)?.Value;
+            if (string.IsNullOrEmpty(buyerEmail))
+            {
+                return Unauthorized(new ApiResponse(401, "User not authenticated"));
+            }
+            var orders = await _orderService.GetOrdersForUserAsync(buyerEmail);
+            if (orders is null || !orders.Any())
+            {
+                return NotFound(new ApiResponse(404, "No orders found for this user"));
+            }
+            return Ok(orders);
+        }
+        [HttpGet("get-order-by-id/{id}")]
+        public async Task<IActionResult> getOrderById(int id)
+        {
+            var buyerEmail = User?.FindFirst(ClaimTypes.Email)?.Value;
+            if (string.IsNullOrEmpty(buyerEmail))
+            {
+                return Unauthorized(new ApiResponse(401, "User not authenticated"));
+            }
+            var order = await _orderService.GetOrderByIdAsync(id, buyerEmail);
+            if (order is null)
+            {
+                return NotFound(new ApiResponse(404, "Order not found"));
+            }
+            return Ok(order);
+        }
+        [HttpGet("get-delivery")]
+        public async Task<IActionResult> GetDeliveryMethods()
+        {
+            var deliveryMethods = await _orderService.GetDeliveryMethodsAsync();
+            if (deliveryMethods is null || !deliveryMethods.Any())
+            {
+                return NotFound(new ApiResponse(404, "No delivery methods found"));
+            }
+            return Ok(deliveryMethods);
         }
     }
 }

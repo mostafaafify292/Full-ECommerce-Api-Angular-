@@ -57,6 +57,8 @@ Submit(){
       },
       error:(err)=>{
         console.log(err);
+        this.toastr.error(err.error.message, 'Error');
+
       }
     });
   }
@@ -81,7 +83,7 @@ onSendResetLink() {
       }
     });
   }
-  console.log("Reset link sent to:", email); // اربطها بالباك اند هنا
+  console.log("Reset link sent to:", email);
   this.modalRef?.hide();
 }
 

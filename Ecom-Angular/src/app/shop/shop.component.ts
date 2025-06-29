@@ -31,7 +31,7 @@ export class ShopComponent implements OnInit {
   ProductParams = new ProductParams();
 
   getAllProduct() {
-    debugger;
+    
     this.shopService.getProduct(this.ProductParams).subscribe({
       next: (value: IPagination) => {
         this.product = value.data;
@@ -54,13 +54,12 @@ export class ShopComponent implements OnInit {
   //Get Category
 
   getCategory() {
-    debugger;
+    
     this.shopService.getCategory().subscribe((value) => {
 
       this.shopService.getCategory().subscribe((value) => {
         this.Category = value;
     
-        // بعد ما الكاتيجوري تجهز، اقرأ الكويري
         const categoryFromQuery = this.route.snapshot.queryParamMap.get('category');
         if (categoryFromQuery) {
           const matchedCategory = this.Category.find(
@@ -71,7 +70,7 @@ export class ShopComponent implements OnInit {
           }
         }
     
-        // بعد ما تحط الـ CategoryId لو فيه، هات المنتجات
+        
         this.getAllProduct();
       });
 
@@ -79,7 +78,7 @@ export class ShopComponent implements OnInit {
   }
 
   SelectedId(categoryId: number) {
-    debugger;
+    
     this.ProductParams.CategoryId = categoryId;
     this.getAllProduct();
   }

@@ -67,18 +67,24 @@ namespace Ecom.infrastructure.Repository.Services
             return await _unitOf.Repository<DeliveryMethod>().GetAllAsync();
         }
 
-        public async Task<orders> GetOrderByIdAsync(int id, string buyerEmail)
+        public async Task<OrderToReturnDTO> GetOrderByIdAsync(int id, string buyerEmail)
         {
             var order = await _dbContext.Orders.Where(m => m.Id == id && m.BuyerEmail == buyerEmail)
                                                 .Include(o=>o.OrderItems)
                                                 .Include(o=>o.deliveryMethod)
                                                 .FirstOrDefaultAsync();
-            return  order;
+            var result = _mapper.Map<OrderToReturnDTO>(order);
+            return result;
         }
 
-        public Task<IReadOnlyList<orders>> GetOrdersForUserAsync(string buyerEmail)
+        public async Task<IReadOnlyList<OrderToReturnDTO>> GetOrdersForUserAsync(string buyerEmail)
         {
-            throw new NotImplementedException();
+            var orders = await _dbContext.Orders.Where(m => m.BuyerEmail == buyerEmail)
+                                                .Include(o => o.OrderItems)
+                                                .Include(o => o.deliveryMethod)
+                                                .ToListAsync();
+            var result = _mapper.Map<IReadOnlyList<OrderToReturnDTO>>(orders);
+            return result;
         }
     }
 }
