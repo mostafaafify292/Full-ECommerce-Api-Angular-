@@ -1,6 +1,10 @@
 ﻿using Ecom.API.Error;
 using Ecom.Core.DTO;
 using Ecom.Core.ServicesContract;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.BearerToken;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +12,7 @@ namespace Ecom.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -17,6 +22,7 @@ namespace Ecom.API.Controllers
             _orderService = orderService;
         }
         [HttpPost("create-order")]
+        
         public async Task<IActionResult> CreateOrder(orderDTO orderDTO)
         {
             if (orderDTO is null)

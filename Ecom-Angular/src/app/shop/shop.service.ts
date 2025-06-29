@@ -40,4 +40,5 @@ export class ShopService {
   getProductDetails(id: number) {
     return this.http.get<IProduct>(this.baseURL + 'Products/get-by-id/' + id);
   }
+
 }

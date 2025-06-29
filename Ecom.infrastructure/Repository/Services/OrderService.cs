@@ -4,6 +4,7 @@ using Ecom.Core.Entites.order;
 using Ecom.Core.Interfaces;
 using Ecom.Core.ServicesContract;
 using Ecom.infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,14 @@ namespace Ecom.infrastructure.Repository.Services
     {
         private readonly IUnitOfWork _unitOf;
         private readonly IMapper _mapper;
+        private readonly AppDbContext _dbContext;
         private readonly ICustomerBasketRepository _basketRepository;
 
-        public OrderService(IUnitOfWork unitOf ,IMapper mapper , ICustomerBasketRepository basketRepository)
+        public OrderService(IUnitOfWork unitOf ,IMapper mapper ,AppDbContext dbContext, ICustomerBasketRepository basketRepository)
         {
             _unitOf = unitOf;
             _mapper = mapper;
+            _dbContext = dbContext;
             _basketRepository = basketRepository;
         }
         public async Task<orders> CreateOrdersAsync(orderDTO orderDTO, string buyerEmail)
@@ -34,7 +37,7 @@ namespace Ecom.infrastructure.Repository.Services
             List<OrderItem> orderItems = new List<OrderItem>();
             foreach (var item in basket.basketItems)
             {
-                var product = await _unitOf.productRepository.GetByIdAsync(item.Id);
+                var product = await _unitOf.productRepository.GetByIdAsync( item.Id);
                 var orderItem = new OrderItem(product.Id, item.ImageURL , product.Name, product.NewPrice, item.Quantity);
                 orderItems.Add(orderItem);
             }
@@ -55,17 +58,22 @@ namespace Ecom.infrastructure.Repository.Services
             //6. Save To DataBase
             var result = await _unitOf.CompleteAsync();
             if (result <= 0) return null;
+            await _basketRepository.DeleteAsync(orderDTO.basketId);
             return order;
         }
 
-        public Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethodsAsync()
+        public async Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethodsAsync()
         {
-            throw new NotImplementedException();
+            return await _unitOf.Repository<DeliveryMethod>().GetAllAsync();
         }
 
-        public Task<orders> GetOrderByIdAsync(int id, string buyerEmail)
+        public async Task<orders> GetOrderByIdAsync(int id, string buyerEmail)
         {
-            throw new NotImplementedException();
+            var order = await _dbContext.Orders.Where(m => m.Id == id && m.BuyerEmail == buyerEmail)
+                                                .Include(o=>o.OrderItems)
+                                                .Include(o=>o.deliveryMethod)
+                                                .FirstOrDefaultAsync();
+            return  order;
         }
 
         public Task<IReadOnlyList<orders>> GetOrdersForUserAsync(string buyerEmail)

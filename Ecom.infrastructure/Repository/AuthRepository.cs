@@ -76,15 +76,19 @@ namespace Ecom.infrastructure.Repository
                 return null;
             
             var findUser = await _userManager.FindByEmailAsync(loginDTO.Email);
-            if (!findUser.EmailConfirmed)
+            if (findUser is not null)
             {
-                string token = await _userManager.GenerateEmailConfirmationTokenAsync(findUser);
-                await SendEmail(findUser.Email, token,"active", "ActiveEmail", "Please Active Your Email , Click on Button to Active");
-                return "Please Confirem your E-mail First , we have send activate to your E-mail";
+                if (!findUser.EmailConfirmed)
+                {
+                    string token = await _userManager.GenerateEmailConfirmationTokenAsync(findUser);
+                    await SendEmail(findUser.Email, token, "active", "ActiveEmail", "Please Active Your Email , Click on Button to Active");
+                    return "Please Confirem your E-mail First , we have send activate to your E-mail";
+                }
+                var result = await _signInManager.CheckPasswordSignInAsync(findUser, loginDTO.Password, false);
+                if (result.Succeeded)
+                    return await _token.GetAndCreateToken(findUser, _userManager);
             }
-            var result = await _signInManager.CheckPasswordSignInAsync(findUser, loginDTO.Password, false);
-            if (result.Succeeded)
-                return await _token.GetAndCreateToken(findUser , _userManager);
+           
             
             return "Please check your email or password , something went wrong";
         }

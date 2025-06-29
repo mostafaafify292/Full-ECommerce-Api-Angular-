@@ -2,6 +2,10 @@
 {
     public class DeliveryMethod : BaseEntity
     {
+        public DeliveryMethod()
+        {
+            
+        }
         public DeliveryMethod(string name, string description, decimal price, string deliveryTime)
         {
             Name = name;

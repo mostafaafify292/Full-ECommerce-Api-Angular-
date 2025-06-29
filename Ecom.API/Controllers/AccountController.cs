@@ -47,19 +47,18 @@ namespace Ecom.API.Controllers
             {
                 Secure = true,
                 HttpOnly = true,
-                Domain = "localhost",
                 Expires = DateTime.Now.AddDays(1),
                 IsEssential =true,
-                SameSite = SameSiteMode.Strict
+                SameSite = SameSiteMode.None
             });
-            return Ok(new ApiResponse(200));
+            return Ok(new ApiResponse(200, "Login SUCCESS"));
         }
 
         [HttpPost("active-account")]
         public async Task<IActionResult> active(ActiveAccountDTO accountDTO)
         {
             var result = await _unit.Auth.ActiveAccount(accountDTO);
-            return result ? Ok(new ApiResponse(200)) : BadRequest(new ApiResponse(400));
+            return result ? Ok(new ApiResponse(200 , "Active Successfully")) : BadRequest(new ApiResponse(400));
         }
 
         [HttpGet("send-email-forget-password")]

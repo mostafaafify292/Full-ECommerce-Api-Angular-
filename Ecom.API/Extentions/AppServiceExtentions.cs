@@ -86,7 +86,17 @@ namespace Ecom.API.Extentions
                 };
                 options.Events.OnMessageReceived = Context =>
                 {
-                    Context.Token = Context.Request.Cookies["token"];
+                    // Try to get from cookie first
+                    var tokenFromCookie = Context.Request.Cookies["token"];
+
+                    // If not found in cookie, try from Authorization header
+                    if (string.IsNullOrEmpty(tokenFromCookie))
+                    {
+                        tokenFromCookie = Context.Request.Headers["Authorization"]
+                            .ToString().Replace("Bearer ", "");
+                    }
+
+                    Context.Token = tokenFromCookie;
                     return Task.CompletedTask;
                 };
 
