@@ -29,7 +29,7 @@ namespace Ecom.infrastructure.Repository
         public async Task AddAsync(T entity)
         {
            await _dbContext.Set<T>().AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
         }
 
         public async Task<int> CountAsync()

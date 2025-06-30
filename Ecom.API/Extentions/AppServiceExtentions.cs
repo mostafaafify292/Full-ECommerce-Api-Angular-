@@ -60,44 +60,41 @@ namespace Ecom.API.Extentions
                 op.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 op.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
-            }).AddCookie(op =>
-            {
-                op.Cookie.Name = "token";
-                op.Events.OnRedirectToLogin = context =>
-                {
-                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;   //When i Add Authorize [attribute]
-                    return Task.CompletedTask;                                    //try to login or register if he is not auth return 401
-                };
             }).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false; //Angular is Https not http 
                 options.SaveToken = true;
 
+                var validIssuer = configuration["JWT:ValidIssuer"];
+                var validAudience = configuration["JWT:ValidAudience"];
+                var authKey = configuration["JWT:AuthKey"];
+
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = configuration["JWT:ValidIssure"],
+                    ValidIssuer = validIssuer,
                     ValidateAudience = true,
-                    ValidAudience = configuration["JWT:ValidAudience"],
+                    ValidAudience = validAudience,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:AuthKey"] ?? string.Empty))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authKey))
                 };
-                options.Events.OnMessageReceived = Context =>
+                options.Events = new JwtBearerEvents
                 {
-                    // Try to get from cookie first
-                    var tokenFromCookie = Context.Request.Cookies["token"];
-
-                    // If not found in cookie, try from Authorization header
-                    if (string.IsNullOrEmpty(tokenFromCookie))
+                    OnMessageReceived = context =>
                     {
-                        tokenFromCookie = Context.Request.Headers["Authorization"]
-                            .ToString().Replace("Bearer ", "");
-                    }
+                        var tokenFromCookie = context.Request.Cookies["token"];                   
 
-                    Context.Token = tokenFromCookie;
-                    return Task.CompletedTask;
+                        if (string.IsNullOrEmpty(tokenFromCookie))
+                        {
+                            tokenFromCookie = context.Request.Headers["Authorization"]
+                                .ToString().Replace("Bearer ", "");
+                        }
+
+                        context.Token = tokenFromCookie;
+                        return Task.CompletedTask;
+                    }
                 };
 
             });

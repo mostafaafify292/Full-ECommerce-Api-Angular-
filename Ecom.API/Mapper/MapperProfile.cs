@@ -27,7 +27,8 @@ namespace Ecom.API.Mapper
             //Shipping on order
             CreateMap<ShipAddressDTO, ShippingAddress>().ReverseMap();
 
-            CreateMap<orders, OrderToReturnDTO>().ReverseMap();
+            CreateMap<orders, OrderToReturnDTO>().ForMember(o=>o.deliveryMethod , d=>d.MapFrom(o=>o.deliveryMethod.Name))
+                                                 .ReverseMap();
             CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
 
 
