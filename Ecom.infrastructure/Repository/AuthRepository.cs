@@ -8,7 +8,10 @@ using Ecom.Core.Entites.Identity;
 using Ecom.Core.Interfaces;
 using Ecom.Core.ServicesContract;
 using Ecom.Core.Sharing;
+using Ecom.infrastructure.Data;
+using Ecom.infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ecom.infrastructure.Repository
 {
@@ -18,16 +21,19 @@ namespace Ecom.infrastructure.Repository
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailService _emailService;
         private readonly IGenerateToken _token;
+        private readonly AppIdentityDbContext _dbContext;
 
         public AuthRepository(UserManager<AppUser> userManager ,
                               SignInManager<AppUser> signInManager ,
                               IEmailService emailService ,
-                              IGenerateToken token)
+                              IGenerateToken token,
+                              AppIdentityDbContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailService = emailService;
             _token = token;
+            _dbContext = dbContext;
         }
         public async Task<string> RegisterAsync(RegisterDTO registerDTO)
         {
@@ -134,6 +140,26 @@ namespace Ecom.infrastructure.Repository
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             await SendEmail(user.Email, token, "active", "ActiveEmail", "Please Active Your Email , Click on Button to Active");
             return false;
+
+        }
+
+        public async Task<bool> UpdateAddress(string email, Address address)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null) return false;
+            var Myaddress = await _dbContext.Addresses.FirstOrDefaultAsync(a => a.AppUserId == user.Id);
+            if (Myaddress == null)
+            {
+                 await _dbContext.Addresses.AddAsync(address);
+            }
+            else
+            {
+                address.Id = Myaddress.Id;
+                _dbContext.Addresses.Update(address);
+            }
+            await _dbContext.SaveChangesAsync();
+            return true;
+            
 
         }
     }

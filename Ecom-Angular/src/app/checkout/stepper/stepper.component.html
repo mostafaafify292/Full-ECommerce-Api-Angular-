@@ -1,0 +1,30 @@
+
+<mat-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="Address">
+        <ng-template matStepLabel>Fill out your Address</ng-template>
+        <app-address [address]="Address"></app-address>
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+        <form [formGroup]="secondFormGroup">
+            <mat-form-field>
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+            </mat-form-field>
+            <div>
+                <button matButton matStepperPrevious>Back</button>
+                <button matButton matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+            <button matButton matStepperPrevious>Back</button>
+            <button matButton (click)="stepper.reset()">Reset</button>
+        </div>
+    </mat-step>
+</mat-stepper>
+  

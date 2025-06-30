@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using Ecom.API.Error;
+using Ecom.Core.DTO;
 using Ecom.Core.DTO.IdentityDTOS;
+using Ecom.Core.Entites.Identity;
 using Ecom.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Ecom.API.Controllers
 {
@@ -83,6 +86,14 @@ namespace Ecom.API.Controllers
       
             return BadRequest(new ApiResponse(400, "Model is not Valid"));
             
+        }
+        [HttpPut("update-address")]
+        public async Task<IActionResult> updateAddress(ShipAddressDTO shipAddressDTO)
+        {
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var address = _mapper.Map<Address>(shipAddressDTO);
+            var result = await _unit.Auth.UpdateAddress(email, address);
+            return result ? Ok() : BadRequest();
         }
     } 
 }

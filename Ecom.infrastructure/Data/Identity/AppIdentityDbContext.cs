@@ -19,5 +19,6 @@ namespace Ecom.infrastructure.Data.Identity
             base.OnModelCreating(builder);
             builder.Entity<Address>().ToTable("Addresses");
         }
+        public DbSet<Address> Addresses { get; set; }
     }
 }
