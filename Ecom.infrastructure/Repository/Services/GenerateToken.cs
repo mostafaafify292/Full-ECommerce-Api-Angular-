@@ -38,8 +38,8 @@ namespace Ecom.infrastructure.Repository.Services
 
             var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:AuthKey"] ?? string.Empty));
             var token = new JwtSecurityToken(
-                audience: _configuration["JWT:ValidAudience"],
-                issuer: _configuration["JWT:ValidIssure"],
+                //audience: _configuration["JWT:ValidAudience"],
+                issuer: _configuration["JWT:ValidIssuer"],
                 expires: DateTime.Now.AddDays(double.Parse(_configuration["JWT:DurationInDays"] ?? "0")),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authKey, SecurityAlgorithms.HmacSha256Signature));

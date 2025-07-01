@@ -4,6 +4,8 @@ using Ecom.Core.DTO;
 using Ecom.Core.DTO.IdentityDTOS;
 using Ecom.Core.Entites.Identity;
 using Ecom.Core.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -51,8 +53,10 @@ namespace Ecom.API.Controllers
                 Secure = true,
                 HttpOnly = true,
                 Expires = DateTime.Now.AddDays(1),
+                
                 IsEssential =true,
-                SameSite = SameSiteMode.None
+                SameSite = SameSiteMode.None,
+                Path="/"
             });
             return Ok(new ApiResponse(200, "Login SUCCESS"));
         }
@@ -88,6 +92,7 @@ namespace Ecom.API.Controllers
             
         }
         [HttpPut("update-address")]
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> updateAddress(ShipAddressDTO shipAddressDTO)
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;

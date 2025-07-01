@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Ecom.API.Extentions
 {
@@ -55,27 +56,40 @@ namespace Ecom.API.Extentions
             });
 
             // JWT Validation
+            
             services.AddAuthentication(op =>
             {
                 op.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 op.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                op.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
-            }).AddJwtBearer(options =>
+            })
+            .AddCookie(o =>
+            {
+                o.Cookie.Name = "token";
+                o.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return Task.CompletedTask;
+                };
+
+            })
+            .AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false; //Angular is Https not http 
                 options.SaveToken = true;
 
                 var validIssuer = configuration["JWT:ValidIssuer"];
-                var validAudience = configuration["JWT:ValidAudience"];
+                //var validAudience = configuration["JWT:ValidAudience"];
                 var authKey = configuration["JWT:AuthKey"];
 
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
                     ValidIssuer = validIssuer,
-                    ValidateAudience = true,
-                    ValidAudience = validAudience,
-                    ValidateLifetime = true,
+                    ValidateAudience = false, // false to can use it by postman and etc
+                    //ValidAudience = validAudience,
+                   // ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authKey))
@@ -94,7 +108,7 @@ namespace Ecom.API.Extentions
 
                         context.Token = tokenFromCookie;
                         return Task.CompletedTask;
-                    }
+                    },               
                 };
 
             });

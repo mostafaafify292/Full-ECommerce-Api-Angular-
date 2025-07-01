@@ -142,7 +142,7 @@ namespace Ecom.infrastructure.Repository
             return false;
 
         }
-
+        
         public async Task<bool> UpdateAddress(string email, Address address)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -150,12 +150,20 @@ namespace Ecom.infrastructure.Repository
             var Myaddress = await _dbContext.Addresses.FirstOrDefaultAsync(a => a.AppUserId == user.Id);
             if (Myaddress == null)
             {
+                address.AppUserId = user.Id;
                  await _dbContext.Addresses.AddAsync(address);
             }
             else
             {
-                address.Id = Myaddress.Id;
-                _dbContext.Addresses.Update(address);
+
+                Myaddress.State = address.State;
+                Myaddress.Street = address.Street;
+                Myaddress.City = address.City;
+                Myaddress.FirstName = address.FirstName;
+                Myaddress.LastName = address.LastName;
+                Myaddress.ZipCode = address.ZipCode;
+                //address.Id = Myaddress.Id;
+                _dbContext.Update(Myaddress);
             }
             await _dbContext.SaveChangesAsync();
             return true;

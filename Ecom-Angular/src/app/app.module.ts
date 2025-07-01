@@ -21,6 +21,8 @@ import { loaderInterceptor } from './core/interceptor/loader.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { CredentialsInterceptor } from './core/interceptor/credentials.interceptor';
+
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -35,16 +37,19 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
       closeButton: true,
       positionClass: 'toast-top-right',
       countDuplicates: true,
-      timeOut: 900,
+      timeOut: 1300,
       progressBar: true,
     }),
   ],
   providers: [
     provideClientHydration(),
     provideHttpClient(withInterceptorsFromDi()),
+    { provide: HTTP_INTERCEPTORS, useClass: CredentialsInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: loaderInterceptor, multi: true },
     provideAnimationsAsync(),
   ],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+  

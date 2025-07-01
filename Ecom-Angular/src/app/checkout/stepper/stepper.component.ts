@@ -20,7 +20,7 @@ export class StepperComponent {
   });
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
-  });
+  }); 
 
 
 }
