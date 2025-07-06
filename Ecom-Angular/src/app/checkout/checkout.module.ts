@@ -16,6 +16,7 @@ import { OrderTotalComponent } from '../shared/Component/pagination/order-total/
 import { share } from 'rxjs';
 import { SharedModule } from '../shared/shared.module';
 import { PaymentComponent } from './payment/payment.component';
+import { SuccessComponent } from './success/success.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { PaymentComponent } from './payment/payment.component';
     StepperComponent,
     AddressComponent,
     DeliveryComponent,
-    PaymentComponent
+    PaymentComponent,
+    SuccessComponent
   ],
   imports: [
     CommonModule,

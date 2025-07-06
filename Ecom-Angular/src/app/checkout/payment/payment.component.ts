@@ -5,6 +5,7 @@ import { BasketService } from '../../basket/basket.service';
 import { Basket, IBasket } from '../../shared/Models/Basket';
 import { FormGroup } from '@angular/forms';
 import { ICreateOrder } from '../../shared/Models/Order';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -20,7 +21,9 @@ ngOnInit(): void {
 }
   constructor(private _checkoutService: CheckoutService,
               private _toast: ToastrService,
-              private _basketService: BasketService ) { }
+              private _basketService: BasketService,
+              private _router:Router
+             ) { }
 
   CreateOrder() {
     const basket = this._basketService.GetCurrentValue();
@@ -31,7 +34,9 @@ ngOnInit(): void {
     const order = this.GetOrderCreate(basket);
     this._checkoutService.CreateOrder(order).subscribe({
       next: (response) => {
+        this._router.navigate(['/checkout/success'],{queryParams:{orderId:response.id}});
         this._toast.success('Order created successfully',"SUCCESS");
+        this._basketService.deleteBasketItem(basket)
       },
       error: (error) => {
         console.error(error);

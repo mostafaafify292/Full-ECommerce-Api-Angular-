@@ -32,7 +32,10 @@ namespace Ecom.infrastructure.Repository.Services
         {
             //1. Get Basket From basket repo
             var basket = await _basketRepository.GetBasketAsync(orderDTO.basketId);
-
+            if (basket is null)
+            {
+                return null;
+            }
             //2. Get Selected Items at Basket from product repo and add it to orderitems 
             List<OrderItem> orderItems = new List<OrderItem>();
             foreach (var item in basket.basketItems)
@@ -58,7 +61,6 @@ namespace Ecom.infrastructure.Repository.Services
             //6. Save To DataBase
             var result = await _unitOf.CompleteAsync();
             if (result <= 0) return null;
-            await _basketRepository.DeleteAsync(orderDTO.basketId);
             return order;
         }
 
