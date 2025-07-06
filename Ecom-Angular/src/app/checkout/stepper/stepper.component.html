@@ -11,12 +11,7 @@
     </mat-step>
     <mat-step>
 
-        <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
-        <div>
-            <button matButton matStepperPrevious>Back</button>
-            <button matButton (click)="stepper.reset()">Reset</button>
-        </div>
+        <app-payment ngSkipHydration [Address]="Address" [DeliveryMethod]="DeliveryMethod"></app-payment>
     </mat-step>
 </mat-stepper>
   

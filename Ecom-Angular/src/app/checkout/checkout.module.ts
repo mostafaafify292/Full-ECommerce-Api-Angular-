@@ -15,6 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { OrderTotalComponent } from '../shared/Component/pagination/order-total/order-total.component';
 import { share } from 'rxjs';
 import { SharedModule } from '../shared/shared.module';
+import { PaymentComponent } from './payment/payment.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { SharedModule } from '../shared/shared.module';
     CheckoutComponent,
     StepperComponent,
     AddressComponent,
-    DeliveryComponent
+    DeliveryComponent,
+    PaymentComponent
   ],
   imports: [
     CommonModule,
@@ -35,12 +37,12 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     MatRadioModule,
     SharedModule,
-    
   ],
   exports: [
     StepperComponent,
     AddressComponent,
     DeliveryComponent,
+    PaymentComponent
   ],
 })
 export class CheckoutModule { }
