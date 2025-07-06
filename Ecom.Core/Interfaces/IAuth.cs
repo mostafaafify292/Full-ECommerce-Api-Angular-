@@ -1,4 +1,5 @@
-﻿using Ecom.Core.DTO.IdentityDTOS;
+﻿using Ecom.Core.DTO;
+using Ecom.Core.DTO.IdentityDTOS;
 using Ecom.Core.Entites.Identity;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ namespace Ecom.Core.Interfaces
         Task<string> ResetPassword(resetPasswordDTO resetPassword);
         Task<bool> ActiveAccount(ActiveAccountDTO activeAccount);
         Task<bool> UpdateAddress(string email, Address address);
+        Task<Address> getUserAddress(string email);
     }
 }

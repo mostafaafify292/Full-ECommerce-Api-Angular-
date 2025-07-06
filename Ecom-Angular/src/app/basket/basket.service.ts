@@ -4,6 +4,7 @@ import { BehaviorSubject, map } from 'rxjs';
 import { Basket, IBasket, IBasketItem, IBasketTotal } from '../shared/Models/Basket';
 import { IProduct } from '../shared/Models/Product';
 import { v4 as uuidv4 } from 'uuid';
+import { Delivery } from '../shared/Models/Delivery';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +16,15 @@ export class BasketService {
   basket$ = this.basketSource.asObservable();
   private basketSourceTotal = new BehaviorSubject<IBasketTotal>(null);
   basketTotal$ =this.basketSourceTotal.asObservable();
-
+  shipPrice:number=0;
+  
+  SetShippingPrice(delivery:Delivery) {
+    this.shipPrice = delivery.price;
+    this.calulateTotal();
+  }
   calulateTotal(){
     const basket = this.GetCurrentValue();
-    const shipping =0;
+    const shipping =this.shipPrice;
     const subTotal =basket.basketItems.reduce((a,c)=>{
       return(c.price*c.quantity)+a
     },0)
@@ -148,5 +154,8 @@ export class BasketService {
           console.log(err);
         },
       });
+  }
+  isAuthenticated(){
+    return this.http.get(this.baseURL + 'account/isUserAuth');
   }
 }

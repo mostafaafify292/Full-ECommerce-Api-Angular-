@@ -5,11 +5,12 @@
             <app-stepper></app-stepper>
         </div>
         <div class="col-md-4">
-            <h2>Order Summary</h2>
-            <p>Items in your cart will be displayed here.</p>
-            <!-- You can add a component or service to display the cart items -->
-            <p>Total: $0.00</p>
-            <button mat-raised-button color="primary">Place Order</button>
+            
+    <div class="order-summary-container">
+      <app-order-total></app-order-total> 
+       <button mat-raised-button color="primary" class="w-100 mt-3">Place Order</button>
+    </div>
+
         </div>
 
     </div>

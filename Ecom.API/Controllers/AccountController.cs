@@ -4,6 +4,7 @@ using Ecom.Core.DTO;
 using Ecom.Core.DTO.IdentityDTOS;
 using Ecom.Core.Entites.Identity;
 using Ecom.Core.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -91,6 +92,7 @@ namespace Ecom.API.Controllers
             return BadRequest(new ApiResponse(400, "Model is not Valid"));
             
         }
+
         [HttpPut("update-address")]
         [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> updateAddress(ShipAddressDTO shipAddressDTO)
@@ -99,6 +101,33 @@ namespace Ecom.API.Controllers
             var address = _mapper.Map<Address>(shipAddressDTO);
             var result = await _unit.Auth.UpdateAddress(email, address);
             return result ? Ok() : BadRequest();
+        }
+
+        [HttpGet("isUserAuth")]
+        public async Task<IActionResult> isUserAuth()
+        {
+
+            // Force the authentication middleware to run
+            var authenticateResult = await HttpContext.AuthenticateAsync(JwtBearerDefaults.AuthenticationScheme);
+
+            if (!authenticateResult.Succeeded)
+                return Unauthorized("User is not authenticated");
+
+            return Ok("User is authenticated");
+        }
+
+        [HttpGet("get-address-for-user")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> getAddress()
+        {
+            var address = await _unit.Auth.getUserAddress(User.FindFirst(ClaimTypes.Email)?.Value);
+            if (address is not null)
+            {
+                var result =  _mapper.Map<ShipAddressDTO>(address);
+                return Ok(result);
+            }
+            return BadRequest(new ApiResponse(404 , "User Address is null"));
+
         }
     } 
 }

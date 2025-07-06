@@ -1,0 +1,17 @@
+ <form [formGroup]="delivery">
+            <mat-radio-group (change)="setShippingPrice()"  formControlName="delivery" aria-label="Select Delivery Method">
+                @for (item of deliveries; track $index) {
+
+                    <mat-radio-button [value]="item.id">{{item.name}}
+
+                        <p style="font-size:10px">{{item.description+" "+item.deliveryTime }}</p>
+                        <p style="font-size:12px;font-weight: bold;">Price:{{item.price|currency}}</p>
+                    </mat-radio-button>
+
+                }
+                </mat-radio-group>
+            <div>
+                <button class="mr-2" matButton matStepperPrevious mat-raised-button color="primary">Back</button>
+                <button  matButton matStepperNext mat-raised-button color="primary">Next</button>
+            </div>
+        </form>

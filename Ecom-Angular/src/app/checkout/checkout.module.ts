@@ -10,13 +10,19 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { StepperComponent } from './stepper/stepper.component';
 import { AddressComponent } from './address/address.component';
+import { DeliveryComponent } from './delivery/delivery.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { OrderTotalComponent } from '../shared/Component/pagination/order-total/order-total.component';
+import { share } from 'rxjs';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
     CheckoutComponent,
     StepperComponent,
-    AddressComponent
+    AddressComponent,
+    DeliveryComponent
   ],
   imports: [
     CommonModule,
@@ -26,11 +32,15 @@ import { AddressComponent } from './address/address.component';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatRadioModule,
+    SharedModule,
+    
   ],
   exports: [
     StepperComponent,
-    AddressComponent
+    AddressComponent,
+    DeliveryComponent,
   ],
 })
 export class CheckoutModule { }

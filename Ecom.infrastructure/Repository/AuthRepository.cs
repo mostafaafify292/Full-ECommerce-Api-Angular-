@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ecom.Core.DTO;
 using Ecom.Core.DTO.IdentityDTOS;
 using Ecom.Core.Entites.Identity;
 using Ecom.Core.Interfaces;
@@ -169,6 +170,18 @@ namespace Ecom.infrastructure.Repository
             return true;
             
 
+        }
+
+        public async Task<Address> getUserAddress(string email)
+        {       
+            var user2 = await _userManager.Users
+                .Include(u => u.Address)
+                .FirstOrDefaultAsync(u => u.Email == email);
+            if (user2 == null || user2.Address == null)
+                return null; 
+            var address =  user2.Address;
+            return address;
+            
         }
     }
 }

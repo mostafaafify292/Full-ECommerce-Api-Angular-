@@ -1,4 +1,4 @@
-import { Component, Input, input } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { CheckoutService } from '../checkout.service';
 
@@ -7,9 +7,20 @@ import { CheckoutService } from '../checkout.service';
   templateUrl: './address.component.html',
   styleUrl: './address.component.scss'
 })
-export class AddressComponent {
+export class AddressComponent implements OnInit {
+
 @Input()address : FormGroup
+canEdit=false;
 constructor(private _service : CheckoutService){}
+
+  ngOnInit(): void {
+    this._service.getAddress().subscribe({
+      next:(value)=>{
+        this.address.patchValue(value);
+      }
+    })
+  }
+
 UpdateAddress() {
   if (this.address.valid) {
 

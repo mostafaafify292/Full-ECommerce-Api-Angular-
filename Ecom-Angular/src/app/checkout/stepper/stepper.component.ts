@@ -18,8 +18,8 @@ export class StepperComponent {
     zipCode: ['', Validators.required],
     state: ['', Validators.required],
   });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+  DeliveryMethod = this._formBuilder.group({
+    delivery: ['', Validators.required],
   }); 
 
 
