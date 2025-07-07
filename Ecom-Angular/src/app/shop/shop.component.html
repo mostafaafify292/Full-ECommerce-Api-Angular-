@@ -1,87 +1,87 @@
 <router-outlet></router-outlet>
+
 <div class="container mt-5">
   <div class="row">
-    <h1 class="main-title">Shopping</h1>
-    <section class="col-md-3">
-      <div class="sidebar">
-        <h4 class="section-title">Sorting</h4>
-        <div class="custom-select-wrapper mb-4">
-          <select
-            #SortSelected
-            class="form-select"
-            (change)="SotingByPrice($event)"
-          >
-            @for (item of SortingOption; track $index) {
-              <option [value]="item.value">{{ item.name }}</option>
-            }
-          </select>
-        </div>
-        <h4 class="section-title">Categories</h4>
-        <ul class="list-group custom-list-group">
-          <li (click)="SelectedId(0)" class="list-group-item custom-list-item">
+    <!-- Title -->
+    <div class="col-12">
+      <h1 class="main-title mb-4">Shopping</h1>
+    </div>
+
+    <!-- Sidebar: Sorting & Categories -->
+    <aside class="col-md-3">
+      <div class="sidebar p-3 shadow-sm rounded bg-light">
+
+        <!-- Sorting -->
+        <h4 class="section-title mb-2">Sorting</h4>
+        <select
+          #SortSelected
+          class="form-select mb-4"
+          (change)="SotingByPrice($event)">
+          @for (item of SortingOption; track $index) {
+            <option [value]="item.value">{{ item.name }}</option>
+          }
+        </select>
+
+        <!-- Categories -->
+        <h4 class="section-title mb-2">Categories</h4>
+        <ul class="list-group">
+          <li
+            (click)="SelectedId(0)"
+            class="list-group-item"
+            [class.active]="ProductParams.CategoryId === 0">
             All Products
           </li>
           @for (item of Category; track $index) {
             <li
-              [class.active]="item.id == ProductParams.CategoryId"
               (click)="SelectedId(item.id)"
-              class="list-group-item custom-list-item"
-            >
+              class="list-group-item"
+              [class.active]="item.id === ProductParams.CategoryId">
               {{ item.name }}
             </li>
           }
         </ul>
       </div>
-    </section>
+    </aside>
+
+    <!-- Products Section -->
     <section class="col-md-9">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <div *ngIf="product && ProductParams" class="paging-container">
-          <span class="text-dark"
-            >showing {{ product.length }} of
-            {{ ProductParams.pageSize * ProductParams.pageNumber }}</span
-          >
+      <!-- Search & Paging Info -->
+      <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div *ngIf="product && ProductParams" class="paging-info text-muted">
+          Showing {{ product.length }} of {{ ProductParams.pageSize * ProductParams.pageNumber }}
         </div>
-        <div class="search-container">
-          <div class="input-group search-bar">
-            <input
-              type="text"
-              #search
-              (keyup)="OnSearch(search.value)"
-              (keyup.enter)="OnSearch(search.value)"
-              class="form-control"
-              placeholder="Search..."
-            />
-            <input
-              type="button"
-              (click)="OnSearch(search.value)"
-              class="btn btn-danger"
-              value="Search"
-            />
-            <input
-              type="button"
-              (click)="ResetValue()"
-              class="btn btn-dark"
-              value="Reset"
-            />
-          </div>
+
+        <div class="input-group search-bar">
+          <input
+            type="text"
+            #search
+            (keyup)="OnSearch(search.value)"
+            (keyup.enter)="OnSearch(search.value)"
+            class="form-control"
+            placeholder="Search..." />
+          <button
+            class="btn btn-danger"
+            (click)="OnSearch(search.value)">Search</button>
+          <button
+            class="btn btn-dark"
+            (click)="ResetValue()">Reset</button>
         </div>
       </div>
+
+      <!-- Product Cards -->
       <div class="row g-4">
         @for (item of product; track $index) {
-          <ng-container>
-            <app-shop-item
-              [Product]="item"
-              class="product-item col-lg-4 col-md-6"
-            ></app-shop-item>
-          </ng-container>
+          <div class="col-lg-4 col-md-6">
+            <app-shop-item [Product]="item"></app-shop-item>
+          </div>
         }
       </div>
+
       <!-- Pagination -->
-      <div class="d-flex justify-content-center align-items-center mt-5">
+      <div class="d-flex justify-content-center mt-5">
         <app-pagination
           [TotalCount]="TotalCount"
-          (pageChanged)="OnChangePage($event)"
-        >
+          (pageChanged)="OnChangePage($event)">
         </app-pagination>
       </div>
     </section>

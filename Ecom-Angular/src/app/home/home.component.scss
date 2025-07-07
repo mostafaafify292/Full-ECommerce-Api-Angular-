@@ -1,133 +1,134 @@
-/* Hero Section */
+
 .hero-section {
-  background-image: url('https://images.unsplash.com/photo-1607082352044-0cf643c1d451?auto=format&fit=crop&w=1350&q=80');
-  background-size: cover;
-  background-position: center;
-  height: 90vh;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-section .overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.hero-content {
-  color: white;
-  text-align: center;
-  z-index: 2;
-  animation: fadeInUp 1.2s ease forwards;
-}
-
-.hero-content h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-}
-
-.hero-content p {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-}
-
-.btn-shop {
-  padding: 12px 30px;
-  background-color: #ffc107;
-  color: #000;
-  font-weight: bold;
-  border-radius: 25px;
-  text-decoration: none;
-  transition: background-color 0.3s;
-}
-
-.btn-shop:hover {
-  background-color: #e0a800;
-}
-
-/* Features Section */
-.features-section {
-  display: flex;
-  justify-content: space-around;
-  padding: 50px 0;
-  text-align: center;
-}
-
-.features-section .feature {
-  flex: 1;
-  margin: 0 20px;
-  animation: fadeIn 1s ease-in;
-}
-
-.features-section img {
-  width: 60px;
-  margin-bottom: 15px;
-}
-
-/* Product Showcase */
-.showcase-section {
-  padding: 50px 0;
-}
-
-.section-title {
-  text-align: center;
-  margin-bottom: 40px;
-  font-weight: bold;
-  font-size: 2rem;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 25px;
-}
-
-.product-card {
-  background-color: #fff;
-  border-radius: 15px;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
-  animation: fadeInUp 1s ease;
-}
-
-.product-card:hover {
-  transform: translateY(-10px);
-}
-
-.product-card img {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-@keyframes fadeInUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
+    background-image: url('https://images.unsplash.com/photo-1587202372775-98973b9cc08d?auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    height: 95vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  to {
-    transform: translateY(0px);
-    opacity: 1;
-  }
-}
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
   }
-  to {
-    opacity: 1;
-  }
-}
 
-/* Responsive */
-@media (max-width: 768px) {
+  .hero-content {
+    color: white;
+    text-align: center;
+    z-index: 2;
+    animation: fadeInUp 1s ease forwards;
+  }
+
+  .hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+
+  .btn-shop {
+    padding: 12px 30px;
+    background-color: #ffc107;
+    color: #000;
+    font-weight: bold;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .btn-shop:hover {
+    background-color: #e0a800;
+  }
+
   .features-section {
-    flex-direction: column;
+    display: flex;
+    justify-content: space-around;
+    padding: 60px 0;
+    text-align: center;
+    animation: fadeIn 1.2s ease;
   }
-}
+
+  .features-section .feature {
+    flex: 1;
+    margin: 0 20px;
+  }
+
+  .features-section img {
+    width: 60px;
+    margin-bottom: 15px;
+  }
+
+  .showcase-section {
+    padding: 60px 0;
+    animation: fadeInUp 1.2s ease;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: bold;
+    font-size: 2.2rem;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+  }
+
+  .product-card {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .product-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .features-section {
+      flex-direction: column;
+    }
+
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+  }

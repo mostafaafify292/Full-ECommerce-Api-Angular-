@@ -2,9 +2,9 @@
 <section class="hero-section">
   <div class="overlay"></div>
   <div class="hero-content">
-    <h1>Upgrade Your Tech Life</h1>
-    <p>Find the best laptops, phones, and gadgets at unbeatable prices.</p>
-    <a routerLink="/shop" class="btn-shop">Shop Now</a>
+    <h1>Welcome to Afify-Tech</h1>
+    <p>Your destination for the latest laptops, mobiles, and smartwatches.</p>
+    <a routerLink="/shop" class="btn-shop">Explore Products</a>
   </div>
 </section>
 
@@ -17,12 +17,11 @@
   </div>
 </section>
 
-<!-- Product Showcase (Static cards) -->
+<!-- Product Showcase Section -->
 <section class="showcase-section container">
-  <h2 class="section-title">Our Product Categories</h2>
+  <h2 class="section-title">Shop by Category</h2>
   <div class="product-grid">
-    <div class="product-card" *ngFor="let item of products" (click)="navigateToCategory(item.id)"
-      style="cursor: pointer">
+    <div class="product-card" *ngFor="let item of products" (click)="navigateToCategory(item.id)" style="cursor: pointer">
       <img [src]="item.img" alt="product" />
       <h4>{{ item.name }}</h4>
       <p>{{ item.desc }}</p>

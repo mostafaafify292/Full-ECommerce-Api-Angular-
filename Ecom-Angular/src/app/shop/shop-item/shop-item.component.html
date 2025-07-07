@@ -1,50 +1,71 @@
-<div class="card h-100">
+<div class="card h-100 product-card shadow-sm">
+  <!-- Main Product Image -->
   <img
-    [src]="'https://localhost:44330' + Product.photos[0].imageName"
-    class="card-image-top"
+    [src]="'https://localhost:44330' + Product.photos[0]?.imageName"
+    class="card-img-top main-img"
+    alt="Product Image"
   />
-  <div class="card-body">
-    <div class="thumbnails mb-3">
+
+  <div class="card-body d-flex flex-column">
+    <!-- Thumbnails -->
+    <div class="thumbnails mb-3 d-flex gap-2 flex-wrap">
       @for (item of Product.photos; track $index) {
         <img
           [src]="'https://localhost:44330' + item.imageName"
           class="thumbnails-img small-img"
+          alt="Thumbnail"
         />
       }
     </div>
+
+    <!-- Title -->
     <h5 class="card-title">{{ Product.name }}</h5>
-    <!-- <p class="card-text">
-      {{ Product.description }}
-    </p> -->
+
+    <!-- Description + Read More -->
     <p class="card-text">
-  <span class="desc-text">{{ Product.description }}</span>
-  <a
-    *ngIf="Product.description?.length > 150"
-    [routerLink]="['/shop/product-details', Product.id]"
-    class="read-more-link"
-  >
-    Read more
-  </a>
-</p>
-    <p class="price">
-      <span class="old-price">{{ Product.oldPrice | currency }}</span>
-      {{ Product.newPrice | currency }}
+      <span class="desc-text">
+        {{
+          Product.description?.length > 150
+            ? (Product.description | slice: 0:150) + '...'
+            : Product.description
+        }}
+      </span>
+      <a
+        *ngIf="Product.description?.length > 150"
+        [routerLink]="['/shop/product-details', Product.id]"
+        class="read-more-link"
+      >
+        Read more
+      </a>
     </p>
-    <div class="rating mb-3"></div>
-    <button class="btn btn-outline-primary favorite-icon">
+
+    <!-- Prices -->
+    <p class="price mb-2">
+      <span class="old-price me-2 text-muted text-decoration-line-through">
+        {{ Product.oldPrice | currency }}
+      </span>
+      <span class="text-success fw-bold">
+        {{ Product.newPrice | currency }}
+      </span>
+    </p>
+
+    <!-- Favorite Icon -->
+    <button class="btn btn-outline-primary favorite-icon mb-3 align-self-start">
       <i class="fa fa-bookmark"></i>
     </button>
-    <div class="d-flex justify-content-between align-items-start">
+
+    <!-- Action Buttons -->
+    <div class="mt-auto d-flex justify-content-between align-items-center">
       <button (click)="SetBasketValue()" class="btn btn-dark">
-        <i class="fa fa-shopping-cart"></i>Add To Cart
+        <i class="fa fa-shopping-cart me-1"></i> Add To Cart
       </button>
-      <button class="btn btn-success">
-        <i
-          [routerLink]="['product-details', Product.id]"
-          class="fa fa-info-circle"
-        ></i
-        >Details
-      </button>
+
+      <a
+        [routerLink]="['/shop/product-details', Product.id]"
+        class="btn btn-success"
+      >
+        <i class="fa fa-info-circle me-1"></i> Details
+      </a>
     </div>
   </div>
 </div>

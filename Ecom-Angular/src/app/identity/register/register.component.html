@@ -1,62 +1,90 @@
-<section class="pt-5">
-<div class="form-container">
-    <h2 class="text-center">Register</h2>
-    <form  [formGroup]="formGroup" (ngSubmit)="Submit()">
 
-        <div class="form-group">
-  <label>UserName</label>
-  <input type="text" class="form-control" formControlName="userName"
-    [class.is-valid]="_username?.valid && _username?.touched"
-    [class.is-invalid]="_username?.invalid && _username?.touched">
-  <span class="text-danger" *ngIf="_username?.invalid && _username?.touched">
-    UserName is Required
-  </span>
-</div>
 
-<div class="form-group">
-  <label>DisplayName</label>
-  <input type="text" class="form-control" formControlName="displayName"
-    [class.is-valid]="_displayName?.valid && _displayName?.touched"
-    [class.is-invalid]="_displayName?.invalid && _displayName?.touched">
-  <span class="text-danger" *ngIf="_displayName?.invalid && _displayName?.touched">
-    DisplayName is Required
-  </span>
-</div>
-
-<div class="form-group">
-  <label>Email</label>
-  <input type="email" class="form-control" formControlName="email"
-    [class.is-valid]="_email?.valid && _email?.touched"
-    [class.is-invalid]="_email?.invalid && _email?.touched">
-  <span class="text-danger" *ngIf="_email?.hasError('required') && _email?.touched">
-    Email is Required
-  </span>
-  <span class="text-danger" *ngIf="_email?.hasError('email') && _email?.touched">
-    Email Format Invalid (e.g., test&#64;ts.com)
-  </span>
-</div>
-
-<div class="form-group">
-  <label>Password</label>
-  <input type="password" class="form-control" formControlName="password"
-    [class.is-valid]="_password?.valid && _password?.touched"
-    [class.is-invalid]="_password?.invalid && _password?.touched">
-  <span class="text-danger" *ngIf="_password?.hasError('required') && _password?.touched">
-    Password is Required
-  </span>
-  <span class="text-danger" *ngIf="_password?.hasError('pattern') && _password?.touched">
-    Password must contain at least one number, one special character (#$&#64;!.), and be at least 8 characters long
-  </span>
-</div>
-
-  <div class="form-group">
-     <button type="submit" class="btn btn-info w-100 mt-3 fa fa-user-plus" [disabled]="formGroup.invalid">Register</button>
+<section class="register-wrapper d-flex align-items-center justify-content-center min-vh-100 bg-light flex-column">
+  <!-- Logo -->
+  <div class="mb-3 text-center">
+    <img src="http://localhost:4200/assets/images/afify-logo.png.png" alt="AFIFY-TECH Logo" class="register-logo">
   </div>
- 
 
+  <!-- Register Box -->
+  <div class="register-box bg-white p-4 shadow rounded w-100" style="max-width: 400px;">
+    <h4 class="mb-4 text-center fw-bold fs-4">Create account</h4>
 
+    <form [formGroup]="formGroup" (ngSubmit)="Submit()">
+
+      <!-- Username -->
+      <div class="form-group mb-3">
+        <label class="fw-bold">Your name</label>
+        <input type="text" class="form-control" formControlName="userName"
+               [class.is-valid]="_username?.valid && _username?.touched"
+               [class.is-invalid]="_username?.invalid && _username?.touched">
+        <div class="text-danger small mt-1" *ngIf="_username?.invalid && _username?.touched">
+          UserName is Required
+        </div>
+      </div>
+
+      <!-- Display Name -->
+      <div class="form-group mb-3">
+        <label class="fw-bold">Display name</label>
+        <input type="text" class="form-control" formControlName="displayName"
+               [class.is-valid]="_displayName?.valid && _displayName?.touched"
+               [class.is-invalid]="_displayName?.invalid && _displayName?.touched">
+        <div class="text-danger small mt-1" *ngIf="_displayName?.invalid && _displayName?.touched">
+          DisplayName is Required
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group mb-3">
+        <label class="fw-bold">Email</label>
+        <input type="email" class="form-control" formControlName="email"
+               [class.is-valid]="_email?.valid && _email?.touched"
+               [class.is-invalid]="_email?.invalid && _email?.touched">
+        <div class="text-danger small mt-1" *ngIf="_email?.hasError('required') && _email?.touched">
+          Email is Required
+        </div>
+        <div class="text-danger small mt-1" *ngIf="_email?.hasError('email') && _email?.touched">
+          Email Format Invalid (e.g., test&#64;example.com)
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group mb-3">
+        <label class="fw-bold">Password</label>
+        <input type="password" class="form-control" formControlName="password"
+               [class.is-valid]="_password?.valid && _password?.touched"
+               [class.is-invalid]="_password?.invalid && _password?.touched">
+        <div class="text-danger small mt-1" *ngIf="_password?.hasError('required') && _password?.touched">
+          Password is Required
+        </div>
+        <div class="text-danger small mt-1" *ngIf="_password?.hasError('pattern') && _password?.touched">
+          Password must contain at least one number, one special character (#$&#64;!.), and be at least 8 characters long
+        </div>
+        <div class="text-info small mt-1">
+          Passwords must be at least 6 characters.
+        </div>
+      </div>
+
+   
+
+      <!-- Register Button -->
+      <div class="form-group mb-3">
+        <button type="submit" class="btn register-btn w-100" [disabled]="formGroup.invalid">
+          Create your Afify-Tech account
+        </button>
+      </div>
+
+      <p class="small text-muted mb-0">
+        By creating an account, you agree to Afify-Tech’s
+        <a >Conditions of Use</a> and <a >Privacy Notice</a>.
+      </p>
     </form>
 
-</div>
-
+    <!-- Already have account -->
+    <hr class="my-4">
+    <div class="text-center">
+      <span class="small">Already have an account? </span>
+      <a routerLink="/account/Login" class="small text-primary" style="cursor: pointer;">Sign in</a>
+    </div>
+  </div>
 </section>
