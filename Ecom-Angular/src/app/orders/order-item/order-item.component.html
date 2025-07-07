@@ -1,0 +1,83 @@
+<div class="container pt-4 order-page">
+    <!-- Products List -->
+    <div class="basket-container">
+        <div class="product-card" *ngFor="let item of order?.orderItems">
+            <div class="product-image-wrapper">
+                <img [src]="'https://localhost:44330/' + item.mainImage" alt="" class="product-image" />
+            </div>
+            <div class="product-info">
+                <a [routerLink]="['/shop/product-details', item.productItemId]" class="product-name">
+                    {{ item?.productName }}
+                </a>
+                <p class="product-description">
+                    {{ item?.desciption }}
+                </p>
+                <div class="product-meta">
+                    <span class="price">{{ item?.price | currency }}</span>
+                    <span class="quantity">x{{ item?.quntity }}</span>
+                    <span class="total">{{ item?.quntity * item?.price | currency }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary-container">
+        <div class="order-summary">
+            <h5>Order Summary</h5>
+            <ul class="order-details">
+                <li>
+                    <span>Order SubTotal</span>
+                    <span>{{ order?.supTotal | currency }}</span>
+                </li>
+                <li>
+                    <span>Order Shipping</span>
+                    <span>{{ (order?.total - order?.supTotal) | currency }}</span>
+                </li>
+                <li>
+                    <span>Order Status</span>
+                    <span [ngClass]="{
+              'text-warning': order?.status === 'Pending',
+              'text-danger': order?.status === 'PaymentFaild',
+              'text-success': order?.status === 'PaymentReceived'
+            }">{{ order?.status }}</span>
+                </li>
+                <li class="total-row">
+                    <strong>Total</strong>
+                    <strong>{{ order?.total | currency }}</strong>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+  
+
+
+  
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Product Rating</h5>
+
+            </div>
+            <div class="modal-body">
+                <div class="radio-input">
+                    @for (item of [5,4,3,2,1]; track $index) {
+                    <input class="star s{{item}}" type="radio" id="value-{{item}}" name="value-radio"
+                        value="value-{{item}}" (change)="UpdateRating(item)" />
+                    }
+                </div>
+                <textarea placeholder="write your review..." [(ngModel)]="rating.content" class="form-control"
+                    id=""></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
+                <button type="button" class="btn btn-primary" (click)="submit()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div> -->

@@ -22,10 +22,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { CredentialsInterceptor } from './core/interceptor/credentials.interceptor';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, AboutUsComponent],
   imports: [
     BrowserModule,
     RouterLink,

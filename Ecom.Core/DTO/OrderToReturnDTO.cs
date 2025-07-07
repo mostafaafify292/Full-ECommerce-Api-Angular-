@@ -27,5 +27,6 @@ namespace Ecom.Core.DTO
         public string ProductName { get; set; }
         public decimal Price { get; set; }
         public int Quntity { get; set; }
+        public string Desciption { get; set; }
     }
 }

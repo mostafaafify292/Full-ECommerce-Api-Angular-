@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShopComponent } from './shop/shop.component';
 import { HomeComponent } from './home/home.component';
 import { ProductDetailsComponent } from './shop/product-details/product-details.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,6 +25,15 @@ const routes: Routes = [
     path: 'account',
     loadChildren: () =>
       import('./identity/identity.module').then((m) => m.IdentityModule),
+  },
+  {
+    path: 'orders',
+    loadChildren: () =>
+      import('./orders/orders.module').then((m) => m.OrdersModule),
+  },
+  {
+    path: 'about',
+    component: AboutUsComponent
   },
 
 

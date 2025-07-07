@@ -41,7 +41,7 @@ namespace Ecom.infrastructure.Repository.Services
             foreach (var item in basket.basketItems)
             {
                 var product = await _unitOf.productRepository.GetByIdAsync( item.Id);
-                var orderItem = new OrderItem(product.Id, item.ImageURL , product.Name, product.NewPrice, item.Quantity);
+                var orderItem = new OrderItem(product.Id, item.ImageURL , product.Name, product.NewPrice, item.Quantity,product.Description);
                 orderItems.Add(orderItem);
             }
 

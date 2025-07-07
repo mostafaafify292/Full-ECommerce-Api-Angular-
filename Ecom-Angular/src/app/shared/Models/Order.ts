@@ -29,5 +29,6 @@ export interface IOrderItem {
     mainImage: string;
     productName: string;
     price: number;
-    quantity: number;
+    quntity: number;
+    desciption: string;
 }

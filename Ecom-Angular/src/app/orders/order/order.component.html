@@ -1,0 +1,33 @@
+<div class="container py-5 orders-modern">
+    <div class="row g-4">
+        <div class="col-lg-4 col-md-6" *ngFor="let item of orders">
+            <div class="order-card-modern shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="order-id">Order #{{ item.id }}</h5>
+                    <span class="order-status" [ngClass]="{
+                'pending': item.status === 'Pending',
+                'failed': item.status === 'PaymentFaild',
+                'received': item.status === 'PaymentReceived'
+              }">
+                        {{ item.status }}
+                    </span>
+                </div>
+                <div class="order-body d-flex align-items-center">
+                    <img [src]="'https://localhost:44330/' + getFirstImageOrderItem(item.orderItems)"
+                        class="order-thumbnail" alt="product-image" />
+                    <div class="ms-3">
+                        <p class="order-date mb-1"><i class="fa fa-calendar-alt me-1"></i> {{ item.orderDate | date }}
+                        </p>
+                        <p class="order-total mb-0"><strong>Total:</strong> {{ item.total | currency }}</p>
+                    </div>
+                </div>
+                <div class="text-end mt-3">
+                    <a class="btn btn-sm btn-view" routerLink="/orders/item" [queryParams]="{ id: item.id }">
+                        View Details <i class="fa fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  

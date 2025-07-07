@@ -1,0 +1,88 @@
+.orders-modern {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f6f9;
+  }
+  
+  .order-card-modern {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 123, 255, 0.1);
+    }
+  
+    .order-id {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+  
+    .order-status {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: capitalize;
+  
+      &.pending {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+  
+      &.failed {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+  
+      &.received {
+        background-color: #d4edda;
+        color: #155724;
+      }
+    }
+  
+    .order-thumbnail {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+  
+    .order-body {
+      display: flex;
+      align-items: center;
+    }
+  
+    .order-date {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+  
+    .order-total {
+      font-size: 1rem;
+      color: #000;
+    }
+  
+    .btn-view {
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 20px;
+      padding: 6px 18px;
+      font-size: 0.85rem;
+      transition: 0.3s ease;
+      text-decoration: none;
+  
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+  
