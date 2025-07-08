@@ -29,6 +29,7 @@ namespace Ecom.API.Extentions
             services.AddScoped<IGenerateToken, GenerateToken>();
             services.AddScoped<IAuth, AuthRepository>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
 
             services.AddSingleton<IFileProvider>(

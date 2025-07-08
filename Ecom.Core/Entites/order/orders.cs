@@ -14,19 +14,23 @@ namespace Ecom.Core.Entites.order
                       decimal supTotal,
                       ShippingAddress shippingAddress, 
                       DeliveryMethod deliveryMethod, 
-                      IReadOnlyList<OrderItem> orderItems)
+                      IReadOnlyList<OrderItem> orderItems,
+                      string PaymentIntentId
+                      )
         {
             BuyerEmail = buyerEmail;
             SupTotal = supTotal;
             this.shippingAddress = shippingAddress;
             this.deliveryMethod = deliveryMethod;
             OrderItems = orderItems;
+            this.PaymentIntentId = PaymentIntentId;
         }
 
         public string BuyerEmail { get; set; }
         public decimal SupTotal { get; set; }
         public DateTime OrderDate { get; set; } = DateTime.Now;
         public ShippingAddress shippingAddress { get; set; }
+        public string PaymentIntentId { get; set; }
         public DeliveryMethod deliveryMethod { get; set; }
         public IReadOnlyList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
         public Status status { get; set; } = Status.Pending;

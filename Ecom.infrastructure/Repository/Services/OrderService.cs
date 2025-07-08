@@ -20,13 +20,15 @@ namespace Ecom.infrastructure.Repository.Services
         private readonly IMapper _mapper;
         private readonly AppDbContext _dbContext;
         private readonly ICustomerBasketRepository _basketRepository;
+        private readonly IPaymentService _paymentService;
 
-        public OrderService(IUnitOfWork unitOf ,IMapper mapper ,AppDbContext dbContext, ICustomerBasketRepository basketRepository)
+        public OrderService(IUnitOfWork unitOf ,IMapper mapper ,AppDbContext dbContext, ICustomerBasketRepository basketRepository , IPaymentService paymentService)
         {
             _unitOf = unitOf;
             _mapper = mapper;
             _dbContext = dbContext;
             _basketRepository = basketRepository;
+            _paymentService = paymentService;
         }
         public async Task<orders> CreateOrdersAsync(orderDTO orderDTO, string buyerEmail)
         {
@@ -46,16 +48,25 @@ namespace Ecom.infrastructure.Repository.Services
             }
 
             //3. Get DeliveryMethod from DeliveryMethod repo
-            var deliveryMethod = await _unitOf.Repository<DeliveryMethod>().GetByIdAsync(orderDTO.deliveryMethodID);
+             var deliveryMethod = await _unitOf.Repository<DeliveryMethod>().GetByIdAsync(orderDTO.deliveryMethodID);
 
             //4 Calculate Suptotal
             var supTotal = orderItems.Sum(m => m.Price * m.Quntity);
 
             //Additional if any order has the same PaymentIntentId
 
-            //5. Create Order
-            var shipAddress = _mapper.Map<ShippingAddress>(orderDTO.ShipAddress);
-            var order = new orders(buyerEmail, supTotal, shipAddress , deliveryMethod, orderItems);
+            var ExistOrder = await _dbContext.Orders
+                .Where(m=>m.PaymentIntentId == basket.PaymentIntentId)
+                .FirstOrDefaultAsync();
+            if (ExistOrder != null)
+            {
+                _dbContext.Orders.Remove(ExistOrder);
+                await _paymentService.CreateOrUpdatePaymentAsync(basket.Id, deliveryMethod.Id);
+            }
+
+                //5. Create Order
+                var shipAddress = _mapper.Map<ShippingAddress>(orderDTO.ShipAddress);
+            var order = new orders(buyerEmail, supTotal, shipAddress , deliveryMethod, orderItems,basket.PaymentIntentId);
             await _unitOf.Repository<orders>().AddAsync(order);
 
             //6. Save To DataBase
