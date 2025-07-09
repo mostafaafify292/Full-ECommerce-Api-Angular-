@@ -1,2 +1,10 @@
-<button mat-raised-button matStepperPrevious class="mr-1">back</button>
-<button mat-raised-button matStepperNext (click)="CreateOrder()">Payment <i class="fa fa-cc-stripe text-info"></i></button>
+<div class="payment-section">
+  <h3>Enter Card Details</h3>
+  <div id="card-element" #cardElement class="card-box"></div>
+  <div *ngIf="cardErrors" class="text-danger">{{ cardErrors }}</div>
+
+  <div class="mt-3">
+    <button mat-raised-button matStepperPrevious class="mr-1">Back</button>
+    <button mat-raised-button matStepperNext (click)="CreateOrder()">Pay <i class="fa fa-cc-stripe text-info"></i></button>
+  </div>
+</div>

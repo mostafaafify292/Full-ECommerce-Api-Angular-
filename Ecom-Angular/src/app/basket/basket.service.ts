@@ -146,7 +146,7 @@ export class BasketService {
       .delete(this.baseURL + 'Basket/delete-basket/' + basket.id)
       .subscribe({
         next: (value) => {
-            const emptyBasket: IBasket = { id: basket.id, basketItems: [] , paymentIntentId: "", clintSecret: "" };
+            const emptyBasket: IBasket = { id: basket.id, basketItems: [] , paymentIntentId: "", clientSecret: "" };
             this.basketSource.next(emptyBasket);
           localStorage.removeItem('basketId');
         },
@@ -155,10 +155,11 @@ export class BasketService {
         },
       });
   }
+
   CreatePaymentIntent(deliveryMethodId: number= 2) {
     debugger;
     const basket = this.GetCurrentValue();
-    return this.http.post(this.baseURL + 'Payments/Create?basketId=${basket.id}&deliveryId=${deliveryMethodId}', {}).pipe(
+    return this.http.post(`${this.baseURL}Payments/Create?basketId=${basket.id}&deliveryId=${deliveryMethodId}`, {}).pipe(
       map((value:IBasket)=>{
         this.basketSource.next(value);
       })

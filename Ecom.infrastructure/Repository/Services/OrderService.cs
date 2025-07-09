@@ -64,7 +64,7 @@ namespace Ecom.infrastructure.Repository.Services
                 await _paymentService.CreateOrUpdatePaymentAsync(basket.Id, deliveryMethod.Id);
             }
 
-                //5. Create Order
+            //5. Create Order
                 var shipAddress = _mapper.Map<ShippingAddress>(orderDTO.ShipAddress);
             var order = new orders(buyerEmail, supTotal, shipAddress , deliveryMethod, orderItems,basket.PaymentIntentId);
             await _unitOf.Repository<orders>().AddAsync(order);

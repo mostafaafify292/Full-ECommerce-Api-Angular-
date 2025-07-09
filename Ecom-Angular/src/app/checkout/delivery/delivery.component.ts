@@ -30,6 +30,7 @@ export class DeliveryComponent implements OnInit {
   }
 
 CreatePayment(){
+  debugger;
   const id = this.deliveries.find(m=>m.id == this.delivery.value.delivery)?.id;
   this.basketService.CreatePaymentIntent(id).subscribe({
     next:(value)=>{
