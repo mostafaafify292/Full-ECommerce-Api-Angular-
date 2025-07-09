@@ -29,14 +29,14 @@
             (click)="SelectedId(0)"
             class="list-group-item"
             [class.active]="ProductParams.CategoryId === 0">
-            All Products
+            <i class="fa fa-list"></i>All Products
           </li>
           @for (item of Category; track $index) {
             <li
               (click)="SelectedId(item.id)"
               class="list-group-item"
               [class.active]="item.id === ProductParams.CategoryId">
-              {{ item.name }}
+              <i class="fa fa-tag"></i> {{ item.name }}
             </li>
           }
         </ul>
@@ -58,10 +58,10 @@
             (keyup)="OnSearch(search.value)"
             (keyup.enter)="OnSearch(search.value)"
             class="form-control"
-            placeholder="Search..." />
+            placeholder="Search..."  />
           <button
             class="btn btn-danger"
-            (click)="OnSearch(search.value)">Search</button>
+            (click)="OnSearch(search.value)">Search <i class="fa fa-search"></i></button>
           <button
             class="btn btn-dark"
             (click)="ResetValue()">Reset</button>

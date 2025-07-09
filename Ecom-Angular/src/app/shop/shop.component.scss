@@ -1,43 +1,114 @@
 .main-title {
   font-size: 2.5rem;
-  font-weight: bold;
-  color: #333;
+  font-weight: 600;
+  color: #2e3a59;
+  margin-bottom: 1rem;
+  animation: fadeIn 0.6s ease;
 }
 
 .sidebar {
-  background-color: #f9f9f9;
-  border-radius: 10px;
+  background-color: #f5f6fa;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid #e1e1e1;
 }
 
 .section-title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 10px;
-  color: #444;
+  color: #2e3a59;
+  margin-bottom: 0.5rem;
 }
 
 .list-group-item {
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
+  transition: all 0.3s ease-in-out;
+  border: none;
+  background-color: transparent;
+  color: #2e3a59;
+  padding: 10px;
 
-.list-group-item:hover {
-  background-color: #f0f0f0;
-}
+  &:hover {
+    background-color: #e0e4ec;
+    color: #2e3a59;
+    border-radius: 6px;
+  }
 
-.list-group-item.active {
-  background-color: #dc3545;
-  color: #fff;
-  font-weight: bold;
-  border-color: #dc3545;
+  &.active {
+    background-color: #4f709c;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 6px;
+  }
+
+  i {
+    margin-right: 6px;
+  }
 }
 
 .search-bar input[type="text"] {
   min-width: 200px;
+  border-radius: 10px 0 0 10px;
+  border: 1px solid #ccc;
+  padding-left: 10px;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(78, 108, 139, 0.4);
+  }
+}
+
+.search-bar .btn {
+  border-radius: 0;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.search-bar .btn-danger {
+  background-color: #4f709c;
+  border: none;
+
+  &:hover {
+    background-color: #3b5a78;
+    transform: scale(1.05);
+  }
+}
+
+.search-bar .btn-dark {
+  background-color: #2e3a59;
+  border: none;
+  color: #fff;
+
+  &:hover {
+    background-color: #1c263b;
+    transform: scale(1.05);
+  }
+}
+
+select.form-select {
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-weight: 500;
+
+  &:hover {
+    border-color: #4f709c;
+  }
 }
 
 .paging-info {
   font-size: 0.9rem;
+  color: #6c757d;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 768px) {
