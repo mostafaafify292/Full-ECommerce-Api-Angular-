@@ -168,7 +168,5 @@ export class BasketService {
   }
 
 
-  isAuthenticated(){
-    return this.http.get(this.baseURL + 'account/isUserAuth');
-  }
+
 }

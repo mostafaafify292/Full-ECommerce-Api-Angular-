@@ -4,6 +4,7 @@ import { ShopComponent } from './shop/shop.component';
 import { HomeComponent } from './home/home.component';
 import { ProductDetailsComponent } from './shop/product-details/product-details.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'checkout',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./checkout/checkout.module').then((m) => m.CheckoutModule),
   },
@@ -28,6 +30,7 @@ const routes: Routes = [
   },
   {
     path: 'orders',
+     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./orders/orders.module').then((m) => m.OrdersModule),
   },

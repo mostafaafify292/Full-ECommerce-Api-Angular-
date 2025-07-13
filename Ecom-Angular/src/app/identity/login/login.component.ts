@@ -13,13 +13,14 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
 
 formGroup:FormGroup
-
+ returnUrl: string; 
 modalRef?: BsModalRef;
 forgetForm: FormGroup;
 
 constructor(private fb: FormBuilder,
    private _service: IdentityService,
    private router: Router,
+    private route: ActivatedRoute,
    private modalService: BsModalService,
   private toastr: ToastrService) {
 
@@ -30,6 +31,8 @@ constructor(private fb: FormBuilder,
 
   ngOnInit(): void {
    this.formValidation()
+
+   this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/shop';
   }
 
 formValidation(){
@@ -53,7 +56,7 @@ Submit(){
     this._service.Login(this.formGroup.value).subscribe({
       next:(value)=>{
         console.log(value);
-        this.router.navigate(['/shop']);
+        this.router.navigateByUrl(this.returnUrl);
       },
       error:(err)=>{
         console.log(err);

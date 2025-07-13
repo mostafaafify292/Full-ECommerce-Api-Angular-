@@ -111,9 +111,9 @@ namespace Ecom.API.Controllers
             var authenticateResult = await HttpContext.AuthenticateAsync(JwtBearerDefaults.AuthenticationScheme);
 
             if (!authenticateResult.Succeeded)
-                return Unauthorized("User is not authenticated");
+                return Unauthorized();
 
-            return Ok("User is authenticated");
+            return Ok(true);
         }
 
         [HttpGet("get-address-for-user")]

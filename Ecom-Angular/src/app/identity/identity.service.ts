@@ -27,4 +27,8 @@ export class IdentityService {
   resetPassword(form:any){
     return this._httpClient.post(this.baseURL+"Account/reset-password" , form)
   }
+    isAuthenticated(){
+      debugger;
+    return this._httpClient.get(this.baseURL + 'account/isUserAuth');
+  }
 }

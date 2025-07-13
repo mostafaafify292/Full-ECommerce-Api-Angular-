@@ -52,16 +52,15 @@
         </div>
 
         <!-- Quantity Controls -->
-        <p class="text-danger">
-          quantity: {{quantity}}
-          <button (click)=" decrementBasket() " class="btn btn-danger text-white">
-            <i class="fa fa-minus"></i>
+       <div class="quantity-controls">
+          <span>Quantity: {{ quantity }}</span>
+           <button (click)="decrementBasket()" class="quantity-btn">
+          <i class="fa fa-minus"></i>
           </button>
-          &nbsp;
-          <button (click)="incrementBasket()" class="btn btn-dark text-white">
-            <i class="fa fa-plus"></i>
-          </button>
-        </p>
+         <button (click)="incrementBasket()" class="quantity-btn">
+         <i class="fa fa-plus"></i>
+         </button>
+        </div>
 
         <!-- Buttons -->
         <div class="buttons d-flex my-5 flex-wrap gap-2">

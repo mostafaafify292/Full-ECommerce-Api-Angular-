@@ -14,6 +14,7 @@ import { ICreateOrder } from '../../shared/Models/Order';
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
 })
+
 export class PaymentComponent implements OnInit {
   @Input() DeliveryMethod: FormGroup;
   @Input() Address: FormGroup;
@@ -31,7 +32,7 @@ export class PaymentComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    // 1. تحميل Stripe
+    
     this.stripe = await loadStripe('pk_test_51QHeJeG27fZ2e9pHAjYyfi00WgefDKs3EDcUDoWdaLVNaD2IsOFRCfGNSQDmrauEJbK0QJyLe5posdDz8B74LtDg00qz9Yk4wX');
     
     if (!this.stripe) {
@@ -39,7 +40,7 @@ export class PaymentComponent implements OnInit {
       return;
     }
 
-    // 2. تجهيز العناصر و الكارد
+    
     const elements = this.stripe.elements();
     this.card = elements.create('card', {
       style: {
@@ -57,10 +58,10 @@ export class PaymentComponent implements OnInit {
       }
     });
 
-    // 3. تركيب العنصر داخل العنصر من الـ HTML
+   
     this.card.mount(this.cardElement.nativeElement);
 
-    // 4. الاستماع للأخطاء
+    
     this.card.on('change', (event) => {
       this.cardErrors = event.error?.message;
     });
@@ -74,7 +75,7 @@ export class PaymentComponent implements OnInit {
       return;
     }
     console.log('Basket before payment:', basket);
-    // 5. تنفيذ عملية الدفع
+  
     const result = await this.stripe.confirmCardPayment(basket.clientSecret, {
       payment_method: {
         card: this.card,
