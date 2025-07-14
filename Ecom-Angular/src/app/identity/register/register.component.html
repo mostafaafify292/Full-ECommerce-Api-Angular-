@@ -1,23 +1,25 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-
-<section class="register-wrapper d-flex align-items-center justify-content-center min-vh-100 bg-light flex-column">
-  <!-- Logo -->
-  <div class="mb-3 text-center">
-    <img src="http://localhost:4200/assets/images/afify-logo.png.png" alt="AFIFY-TECH Logo" class="register-logo">
+<section class="register-wrapper d-flex flex-column align-items-center justify-content-start gap-3">
+  <!-- Logo with wrapper -->
+  <div class="mb-3 text-center animate__animated animate__slideInDown animate__faster">
+    <div class="logo-bg-wrapper">
+      <img src="http://localhost:4200/assets/images/afify-logo.png.png" alt="AFIFY-TECH Logo" class="register-logo" />
+    </div>
   </div>
 
   <!-- Register Box -->
-  <div class="register-box bg-white p-4 shadow rounded w-100" style="max-width: 400px;">
+  <div class="register-box bg-white p-4 shadow rounded w-100 animate__animated animate__slideInUp animate__faster"
+    style="max-width: 400px;">
     <h4 class="mb-4 text-center fw-bold fs-4">Create account</h4>
 
     <form [formGroup]="formGroup" (ngSubmit)="Submit()">
-
       <!-- Username -->
       <div class="form-group mb-3">
         <label class="fw-bold">Your name</label>
         <input type="text" class="form-control" formControlName="userName"
-               [class.is-valid]="_username?.valid && _username?.touched"
-               [class.is-invalid]="_username?.invalid && _username?.touched">
+          [class.is-valid]="_username?.valid && _username?.touched"
+          [class.is-invalid]="_username?.invalid && _username?.touched">
         <div class="text-danger small mt-1" *ngIf="_username?.invalid && _username?.touched">
           UserName is Required
         </div>
@@ -27,8 +29,8 @@
       <div class="form-group mb-3">
         <label class="fw-bold">Display name</label>
         <input type="text" class="form-control" formControlName="displayName"
-               [class.is-valid]="_displayName?.valid && _displayName?.touched"
-               [class.is-invalid]="_displayName?.invalid && _displayName?.touched">
+          [class.is-valid]="_displayName?.valid && _displayName?.touched"
+          [class.is-invalid]="_displayName?.invalid && _displayName?.touched">
         <div class="text-danger small mt-1" *ngIf="_displayName?.invalid && _displayName?.touched">
           DisplayName is Required
         </div>
@@ -38,8 +40,7 @@
       <div class="form-group mb-3">
         <label class="fw-bold">Email</label>
         <input type="email" class="form-control" formControlName="email"
-               [class.is-valid]="_email?.valid && _email?.touched"
-               [class.is-invalid]="_email?.invalid && _email?.touched">
+          [class.is-valid]="_email?.valid && _email?.touched" [class.is-invalid]="_email?.invalid && _email?.touched">
         <div class="text-danger small mt-1" *ngIf="_email?.hasError('required') && _email?.touched">
           Email is Required
         </div>
@@ -52,8 +53,8 @@
       <div class="form-group mb-3">
         <label class="fw-bold">Password</label>
         <input type="password" class="form-control" formControlName="password"
-               [class.is-valid]="_password?.valid && _password?.touched"
-               [class.is-invalid]="_password?.invalid && _password?.touched">
+          [class.is-valid]="_password?.valid && _password?.touched"
+          [class.is-invalid]="_password?.invalid && _password?.touched">
         <div class="text-danger small mt-1" *ngIf="_password?.hasError('required') && _password?.touched">
           Password is Required
         </div>
@@ -65,8 +66,6 @@
         </div>
       </div>
 
-   
-
       <!-- Register Button -->
       <div class="form-group mb-3">
         <button type="submit" class="btn register-btn w-100" [disabled]="formGroup.invalid">
@@ -76,7 +75,7 @@
 
       <p class="small text-muted mb-0">
         By creating an account, you agree to Afify-Tech’s
-        <a >Conditions of Use</a> and <a >Privacy Notice</a>.
+        <a>Conditions of Use</a> and <a>Privacy Notice</a>.
       </p>
     </form>
 

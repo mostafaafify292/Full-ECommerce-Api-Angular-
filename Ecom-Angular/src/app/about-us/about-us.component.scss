@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
 .about-container {
   padding: 60px 20px;
   background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
@@ -9,14 +14,19 @@
 
 .about-card {
   max-width: 1000px;
-  background: white;
-  border-radius: 14px;
+  background: #fff;
+  border-radius: 16px;
   padding: 40px 30px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+  transition: transform 0.3s;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
 }
 
 .full-width-center {
@@ -25,31 +35,30 @@
   flex-direction: column;
   align-items: center;
 }
-
 .profile-img {
-  width: 180px;
-  height: 180px;
+  width: 220px;      /* كانت 180px */
+  height: 220px;     /* كانت 180px */
   border-radius: 50%;
   object-fit: cover;
-  border: 5px solid #00a8ff;
-  box-shadow: 0 6px 15px rgba(0, 168, 255, 0.3);
+  border: 6px solid #0f2027;
+  box-shadow: 0 8px 20px rgba(0, 184, 148, 0.3);
+  margin-bottom: 15px;
   transition: transform 0.3s ease;
-  margin-bottom: 10px;
 }
 
 .profile-img:hover {
-  transform: scale(1.05);
+  transform: scale(1.07);
 }
 
 h2 {
   margin: 10px 0 0;
-  color: #203a43;
-  font-size: 1.8rem;
+  color: #2d3436;
+  font-size: 2rem;
 }
 
 .job-title {
-  color: #555;
-  font-size: 1rem;
+  color: #636e72;
+  font-size: 1.1rem;
   font-weight: 500;
   margin-bottom: 20px;
 }
@@ -57,31 +66,35 @@ h2 {
 .bio-section {
   width: 100%;
   max-width: 850px;
+  text-align: left;
 }
 
 .bio-section h3 {
   margin-top: 25px;
-  color: #2c5364;
-  font-size: 1.4rem;
+  color: #0984e3;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
 }
 
-.feature-list {
-  text-align: left;
-  margin-top: 10px;
-  padding-left: 20px;
-  color: #444;
+.bio-section p {
+  color: #2d3436;
+  line-height: 1.7;
 }
 
-.feature-list li {
-  margin-bottom: 8px;
-  line-height: 1.6;
+.bio-section a {
+  color: #00a8ff;
+  font-weight: 500;
+}
+
+.bio-section a:hover {
+  text-decoration: underline;
 }
 
 .tech-logos {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 25px;
   margin-top: 20px;
 }
 
@@ -89,34 +102,40 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 90px;
-  font-size: 0.9rem;
+  width: 100px;
+  text-align: center;
+  font-size: 0.95rem;
   color: #333;
+  transition: transform 0.3s;
+}
+
+.tech-logos div:hover {
+  transform: scale(1.05);
 }
 
 .tech-logos img {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .social-links {
-  margin-top: 25px;
+  margin-top: 30px;
   display: flex;
   justify-content: center;
-  gap: 20px;
-  font-size: 1.4rem;
+  gap: 25px;
+  font-size: 1.6rem;
 }
 
 .social-links a {
-  color: #00a8ff;
-  transition: transform 0.3s ease, color 0.3s ease;
+  color: #0984e3;
+  transition: color 0.3s, transform 0.3s;
 }
 
 .social-links a:hover {
-  transform: translateY(-3px);
-  color: #0077b6;
+  transform: translateY(-4px);
+  color: #00b894;
 }
 
 @media (max-width: 768px) {
@@ -126,5 +145,18 @@ h2 {
 
   .tech-logos {
     gap: 15px;
+  }
+
+  .profile-img {
+    width: 140px;
+    height: 140px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .bio-section h3 {
+    font-size: 1.3rem;
   }
 }
